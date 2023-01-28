@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import axios from "axios";
 function App() {
-  return (
+  const [message, setMessage] = useState({
+    g:[]
+  });
+const [mes,setmes]=useState(0);
+
+  useEffect(() => {
+    axios.get("/user").then(
+      (res) => {
+       
+      
+        setMessage({g:res.data}); 
+        setmes(1);
+      },
+      (error) => {
+        console.log("error in fetching");
+      }
+    );
+  },[]);
+
+console.log(mes);
+  return (  
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      { mes && <h1 style={{color:"black"}}>{message.g.mess}</h1>}
+  
+      <button>fetch</button>
     </div>
   );
 }
 
-export default App;
+export default App
