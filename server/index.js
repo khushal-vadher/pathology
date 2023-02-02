@@ -1,8 +1,10 @@
-const { Router } = require('express');
 const express = require('express');
 const mongoose = require('mongoose');
-const connectDB = require('./config/dbconnect');
-const routes = require('./routes/main.js');
+const AppointmentRoutes = require('./routes/Appointment.js')
+const connectDB = require('./config/dbconnect.js');
+// const { default: Appointment } = require('./models/Appointment.js');
+// const Appointment  = require('./controller/Appointment.js')
+// const routes = require('./routes/app.js');
 
 const  app = express();
 
@@ -12,8 +14,13 @@ connectDB();
 // app.get("/",(req,res)=>{
 //     res.send("This is data form server");
 // });
+app.get("/hey",(req,res)=>{
+    console.log("hey")
+    res.send("hey")
+});
 
-app.use('',routes);
+
+app.use('/appointment',AppointmentRoutes);
 
 
 //port listen
