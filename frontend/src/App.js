@@ -24,9 +24,7 @@ const [mes,setmes]=useState(0);
 console.log(mes);
   return (  
     <div className="App">
-      { mes && <h1 style={{color:"black"}}>{message.g.mess}</h1>}
-  
-      <button>fetch</button>
+      { mes && <h1>{message.g.mess}</h1>}
     </div>
   );
 }
