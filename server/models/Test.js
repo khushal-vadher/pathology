@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 const {Schema} = mongoose;
 
 const PthologySchema = new mongoose.Schema({
@@ -8,7 +8,7 @@ const PthologySchema = new mongoose.Schema({
     },
     disease:{
         type : [String], // list of disease for which this test can be done
-        type : require
+        require: true
     },
     amount : {
         type : Number,

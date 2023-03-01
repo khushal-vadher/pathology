@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
-const uri = "mongodb+srv://khushal044:sdpkkr6@pathology.6ipdyqm.mongodb.net/?retryWrites=true&w=majority"
-
-
+require("dotenv").config()
+const url = process.env.URL;
 const connectDB =async ()=>{
     try{
-        await mongoose.connect(uri);
+        await mongoose.connect(url);
         console.log("connected to mongoDB atlas!");
+        // console.log(process.env.URL)
     }catch(err){
         console.log(err);
     }
