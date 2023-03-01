@@ -3,3 +3,5 @@
 packpackage.json
 
 packpackage-lock.json
+
+.env
