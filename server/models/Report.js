@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const {Schema} = mongoose;
 
 const PthologySchema = new mongoose.Schema({
-    user:{ //user is user with is logged in (registered in website)
+    user_id:{ //user is user with is logged in (registered in website)
         type : String,
         require: true
     },
@@ -14,7 +14,7 @@ const PthologySchema = new mongoose.Schema({
         type : String,
         require :true
     },
-    address :{
+    address :{ //can be updated as address_id of address table
         type : String,
         require:true
     },

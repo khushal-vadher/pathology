@@ -5,6 +5,8 @@ const TestRoutes = require("./routes/Test.js")
 const Report = require("./routes/Report.js")
 const connectDB = require('./config/dbconnect.js');
 require('dotenv').config();
+const userRoutes = require("./routes/User.js")
+const authRoutes = require("./routes/auth.js")
 
 const bodyParser = require('body-parser');
 const  app = express();
@@ -17,16 +19,11 @@ connectDB();
 app.use(express.json());
 app.use(bodyParser());
 
+// app.use(cors());
 
-
-// app.get("/hey",(req,res)=>{
-//     res.send("This is data form server");
-// });
-// app.get("/hey1",(req,res)=>{
-//     console.log("hey")
-//     res.send("hey");
-// });
-
+// routes
+app.use("/users", userRoutes);
+app.use("/auth", authRoutes);
 
 
 app.use('/appointment',AppointmentRoutes); //for user
