@@ -1,32 +1,20 @@
-import React, { useState, useEffect } from "react";
-import "./App.css";
-import axios from "axios";
+import { Route, Routes, Navigate } from "react-router-dom";
+import Main from "./components/Main";
+import Signup from "./components/Singup";
+import Login from "./components/Login";
+import UserForm from "./components/UserForm";
 function App() {
-  const [message, setMessage] = useState({
-    g:[]
-  });
-const [mes,setmes]=useState(0);
+	const user = localStorage.getItem("token");
 
-  useEffect(() => {
-    axios.get("/user").then(
-      (res) => {
-       
-      
-        setMessage({g:res.data}); 
-        setmes(1);
-      },
-      (error) => {
-        console.log("error in fetching");
-      }
-    );
-  },[]);
-
-console.log(mes);
-  return (  
-    <div className="App">
-      { mes && <h1>{message.g.mess}</h1>}
-    </div>
-  );
+	return (
+		<Routes>
+			{user && <Route path="/" exact element={<Main />} />}
+			<Route path="/signup" exact element={<Signup />} />
+			<Route path="/login" exact element={<Login />} />
+			<Route path="/" element={<Navigate replace to="/login" />} />
+			<Route path="/form" exact element={<UserForm />}/>
+		</Routes>
+	);
 }
 
-export default App
+export default App;
