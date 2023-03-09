@@ -6,9 +6,10 @@ const Report = require("./routes/Report.js")
 const connectDB = require('./config/dbconnect.js');
 require('dotenv').config();
 const userRoutes = require("./routes/User.js")
-const authRoutes = require("./routes/auth.js")
+const authRoutes = require("./routes/Auth.js")
 
 const bodyParser = require('body-parser');
+const Patient = require('./routes/Patient.js');
 const  app = express();
 
 
@@ -29,6 +30,7 @@ app.use("/auth", authRoutes);
 app.use('/appointment',AppointmentRoutes); //for user
 app.use('/test',TestRoutes); //for admin (CRUD)
 app.use('/report',Report); //for admin (get getAll)
+app.use('/patient',Patient)
 
 app.use((err,req,res,next)=>{
     const errorStatus = err.status|| 500 ;

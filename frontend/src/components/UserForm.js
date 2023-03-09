@@ -54,12 +54,13 @@ const UserForm = () => {
 
   // State variables
   const [wizardValues, setWizardValues] = useState({
-    name: '',
+    // name: '',
     
     address: '',
-    email: '',
+    // email: '',
     nameOfTest: '',
     slot: '',
+    isDocRef : false,
     doctor: '',
     doctorEmail: '',
   });
@@ -73,12 +74,11 @@ const UserForm = () => {
   };
   const handleReset = () => {
     setWizardValues({
-      name: '',
-    
       address: '',
-      email: '',
+      // email: '',
       nameOfTest: '',
       slot: '',
+      isDocRef : false,
       doctor: '',
       doctorEmail: '',
     });
