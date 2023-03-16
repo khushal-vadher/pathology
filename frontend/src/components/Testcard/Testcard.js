@@ -13,14 +13,19 @@ export default function Testcard({ tests }) {
         <Card sx={{ maxWidth: 345 }} style={{ margin: 8 }} >
           
           <CardActionArea >
-            <CardContent key={index} >
-              {Object.entries(obj).map(([key, value]) => (
-                <Typography key={`${key}`} gutterBottom variant="h5" component="div">
-                  <strong>{key}: </strong>
-                  {value}
+            <CardContent  key={index}>
+             
+                <Typography gutterBottom variant="h5" component="div">
+                  <strong>Name of test: {obj.nameOfTest} </strong><br />
+                  <strong>Disease :</strong>
+                 <strong> {obj.disease[0]} </strong><br />
+                 <strong> {obj.disease[1]} </strong>
+
+
+                  
                 </Typography>
 
-              ))}
+            
               <Typography variant="body2" color="text.secondary">
                 This Description for test.
               </Typography>

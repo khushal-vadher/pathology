@@ -12,7 +12,7 @@ const PthologySchema = new mongoose.Schema({
         require :true
     },
     address:{
-        type : String, // list of disease for which this test can be done
+        type : [String], // list of disease for which this test can be done
         require: true
     },
     age : {

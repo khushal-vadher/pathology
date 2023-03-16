@@ -7,7 +7,7 @@ const connectDB = require('./config/dbconnect.js');
 require('dotenv').config();
 const userRoutes = require("./routes/User.js")
 const authRoutes = require("./routes/Auth.js")
-
+// const cookie = require('cookie')
 const bodyParser = require('body-parser');
 const Patient = require('./routes/Patient.js');
 const  app = express();
