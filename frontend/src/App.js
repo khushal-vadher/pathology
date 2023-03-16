@@ -1,5 +1,5 @@
 import { Route, Routes, Navigate } from "react-router-dom";
-import Main from "./components/Main";
+import Main from "./components/Home";
 import Signup from "./components/Singup";
 import Login from "./components/Login";
 import UserForm from "./components/UserForm";

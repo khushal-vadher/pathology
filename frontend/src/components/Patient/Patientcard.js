@@ -6,21 +6,25 @@ import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 
 
-export default function Testcard({ patient }) {
+export default function Patientcard({ patient }) {
 
+  
   return (
     <>
+   
       {patient.map((obj, index) => (
         <Card sx={{ maxWidth: 345 }} style={{ margin: 8 }} >
           <CardActionArea >
             <CardContent key={index} >
-              {Object.entries(obj).map(([key, value]) => (
-                <Typography key={`${key}`} gutterBottom variant="h5" component="div">
-                  <strong>{key}: </strong>
-                  {value}
+
+                <Typography  gutterBottom variant="h5" component="div">
+                  <strong>Name : {obj.nameOfPatient} </strong><br />
+                  <strong>Age : {obj.age} </strong><br />
+                  <strong>Gender : {obj.gender} </strong>
+
                 </Typography>
 
-              ))}
+              
               <Typography variant="body2" color="text.secondary">
                 This Description for test.
               </Typography>
@@ -28,8 +32,10 @@ export default function Testcard({ patient }) {
             </CardContent>
           </CardActionArea>
         </Card>
+        
 
       ))}
+      
     </>
   );
 }

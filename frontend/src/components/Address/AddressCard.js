@@ -13,13 +13,13 @@ export default function AddressCard({ address }) {
         <Card sx={{ maxWidth: 345 }} style={{ margin: 8 }} >
           <CardActionArea >
             <CardContent key={index} >
-              {Object.entries(obj).map(([key, value]) => (
-                <Typography key={`${key}`} gutterBottom variant="h5" component="div">
-                  <strong>{key}: </strong>
-                  {value}
+              
+                <Typography  gutterBottom variant="h5" component="div">
+                  <strong> {obj.address[0]} </strong>
+                  
                 </Typography>
 
-              ))}
+              
               <Typography variant="body2" color="text.secondary">
                 This Description for test.
               </Typography>
