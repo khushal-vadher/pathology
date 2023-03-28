@@ -6,12 +6,15 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Instructions from './steps/Instructions';
 import UserDetails from './steps/UserDetails';
-import AppointmentDetails from './steps/AppointmentDetails';
+import AddressForm from './steps/AddressForm';
 import Confirm from './steps/Confirm';
 import Submit from './steps/Submit';
 import useCurrentWidth from '../hooks/useCurrentWidth';
 import MobileStepper from './layout/mobile/MobileStepper';
 import Main from './Home';
+import Slot from './steps/Slot';
+import Payment from './steps/Payment';
+import axios from 'axios';
 
 const UserForm = () => {
   // Styles
@@ -49,16 +52,16 @@ const UserForm = () => {
   // Steps
   const [activeStep, setActiveStep] = useState(0);
   const getSteps = () => {
-    return ['Instructions', 'User details', 'Report Appointment Details', 'Confirm'];
+    return ['Select Report', 'User details', 'Address','Slot', 'Check Details','Payment'];
   };
   const steps = getSteps();
-
+ 
   // State variables
-  const [wizardValues, setWizardValues] = useState({
+  const [appointmentdata, setAppointmentdata] = useState({
     // name: '',
 
     address: '',
-    // email: '',
+    email: '',
     nameOfTest: '',
     slot: '',
     isDocRef: false,
@@ -74,19 +77,20 @@ const UserForm = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
   const handleReset = () => {
-    setWizardValues({
-      address: '',
-      // email: '',
-      nameOfTest: '',
-      slot: '',
-      isDocRef: false,
-      doctor: '',
-      doctorEmail: '',
+    setAppointmentdata({
+      nameOfTest:'',
+      disease:'',
+      name:'',
+      age:20,
+      gender:'',
+      address:'',
+      time:'',
+      date:'',
     });
     setActiveStep(0);
   };
-  const handleChange = (input) => (e) => {
-    setWizardValues({ ...wizardValues, [input]: e.target.value });
+  const handleChange = (name,value) => {
+    setAppointmentdata(appointmentdata=>({ ...appointmentdata,[name]: value }));
   };
 
   console.log('steps: ' + steps.length);
@@ -94,7 +98,32 @@ const UserForm = () => {
   let width = useCurrentWidth();
   console.log('Width2: ' + width);
   const userToket = localStorage.getItem("token");
+  const user  = localStorage.getItem("User");
   console.log("Token :" +userToket)
+  console.log(user.email)
+  console.log(appointmentdata)
+
+
+
+  //save appointment 
+  const saveAppointment = async() =>{
+    const {nameOfTest,disease,name,age,gender,address,time,date} = appointmentdata;
+    const saveData = {
+      nameOfTest : nameOfTest,
+      name : name,
+      slot : time,
+      date :date,
+      email : user.email
+    }
+    
+    try{
+      const res =await axios.post('/appointment/create',saveData)
+      console.log(res)
+
+    }catch(err){
+      console.log(err)
+    }
+  }
 
   // Rendering
   return (
@@ -136,24 +165,26 @@ const UserForm = () => {
               <div className={classes.steps}>
                 {activeStep === 0 && (
                   <Instructions
-                    values={wizardValues}
+                    // values={appointmentdata}
                     handleChange={handleChange}
                   />
                 )}
                 {activeStep === 1 && (
                   <UserDetails
-                    values={wizardValues}
+                    // values={appointmentdata}
                     handleChange={handleChange}
                   />
                 )}
                 {activeStep === 2 && (
-                  <AppointmentDetails
-                    values={wizardValues}
+                  <AddressForm
+                    // values={appointmentdata}
                     handleChange={handleChange}
                   />
                 )}
-                {activeStep === 3 && <Confirm values={wizardValues} />}
-                {activeStep === 4 && <Submit />}
+                {activeStep === 3 && <Slot  handleChange={handleChange} />}
+                {activeStep === 4 && <Confirm values={appointmentdata} />}
+                {activeStep === 5 && <Payment values={appointmentdata}  />}
+                {activeStep === 6 && <Submit />}
               </div>
               <div>
                 <Button
@@ -163,9 +194,12 @@ const UserForm = () => {
                 >
                   Back
                 </Button>
-                <Button variant='contained' color='primary' onClick={handleNext}>
+                {activeStep !== steps.length - 1 && <Button variant='contained' color='primary' onClick={handleNext} >
                   {activeStep === steps.length - 1 ? 'Submit' : 'Next'}
-                </Button>
+                </Button>}
+                {activeStep === steps.length -1 && <Button variant='contained' color='primary' onClick={saveAppointment} >
+                  {activeStep === steps.length - 1 ? 'Submit' : 'Next'}
+                </Button>}
               </div>
             </div>
           )}

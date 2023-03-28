@@ -2,10 +2,13 @@ import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
 	const [data, setData] = useState({ email: "", password: "" });
 	const [error, setError] = useState("");
+	const nav = useNavigate();
+
 
 	const handleChange = ({ currentTarget: input }) => {
 		setData({ ...data, [input.name]: input.value });
@@ -15,9 +18,15 @@ const Login = () => {
 		e.preventDefault();
 		try {
 			const url = "/auth";
-			const { data: res } = await axios.post(url, data);
+			const res = await axios.post(url, data);
+			// console.log(res.data)
 			localStorage.setItem("token", res.data);
-			window.location = "/";
+
+			localStorage.setItem("User",res.user)
+			console.log(res.data)
+			console.log(res.data.user)
+			nav("/")
+
 		} catch (error) {
 			if (
 				error.response &&
@@ -55,7 +64,7 @@ const Login = () => {
 						/>
 						{error && <div className={styles.error_msg}>{error}</div>}
 						<button type="submit" className={styles.green_btn}>
-							Sing In
+							Sign In
 						</button>
 					</form>
 				</div>

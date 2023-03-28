@@ -1,16 +1,19 @@
 import styles from "./styles.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Main = () => {
+	const nav=useNavigate();
 	const handleLogout = () => {
 		localStorage.removeItem("token");
+		localStorage.removeItem("User");
+		nav("/login")
 		// window.location.reload();
 	};
 	const handleFrom = () =>{
-		window.location.href = "/form"
+		// window.location.href = "/form"
 	}
 	const handleProfile = () =>{
-		window.location.href = "/profile";
+		// window.location.href = "/profile";
 	}
 
 	return (
@@ -24,13 +27,13 @@ const Main = () => {
 					Profile
 				</Link>
 				
-				<Link  to={`form`} className={styles.white_btn} style={{textDecoration :"none"}}>
+				<Link  to={`/form`} className={styles.white_btn} style={{textDecoration :"none"}}>
 					Appointment
 				</Link>
 				
-				<Link to={'login'} className={styles.white_btn} onClick={handleLogout} style={{textDecoration :"none"}}>
+				<button  className={styles.white_btn} onClick={handleLogout} style={{textDecoration :"none"}}>
 					Logout
-				</Link>
+				</button>
 				
 			</nav>
 		</div>

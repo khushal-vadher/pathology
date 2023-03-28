@@ -11,6 +11,7 @@ const authRoutes = require("./routes/Auth.js")
 const bodyParser = require('body-parser');
 const Patient = require('./routes/Patient.js');
 const  app = express();
+const mail = require('./controller/Mail.js')
 
 
 //for connection to the mongodb atlas
@@ -31,6 +32,7 @@ app.use('/appointment',AppointmentRoutes); //for user
 app.use('/test',TestRoutes); //for admin (CRUD)
 app.use('/report',Report); //for admin (get getAll)
 app.use('/patient',Patient)
+app.post('/mail',mail)
 
 app.use((err,req,res,next)=>{
     const errorStatus = err.status|| 500 ;

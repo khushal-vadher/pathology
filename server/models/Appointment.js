@@ -13,7 +13,7 @@ const PthologySchema = new mongoose.Schema({
     },
     mobile: {
         type: Number,
-        require: true,
+        require: false,
         unique : true
     },
     email: {
@@ -32,13 +32,17 @@ const PthologySchema = new mongoose.Schema({
         type: [String], // [] => for allow more then one test at a single appointment
         require: true
     },
+    data :{
+        type : String,
+        require : true
+    },
     slot: {
         type: String,
         require: true
     },
     isDoctorRef: {
         type: Boolean,
-        require: true
+        require: false
     },
     doctor: {
         type: String,

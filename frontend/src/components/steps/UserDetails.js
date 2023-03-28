@@ -4,7 +4,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import Title from '../layout/Title';
 
 import Patientcard from '../Patient/Patientcard'
-const UserDetails = ({ values, handleChange }) => {
+
+
+// import * as React from 'react';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { CardActionArea } from '@mui/material';
+const UserDetails = ({ handleChange }) => {
 
   const [patient ,setPatient] = useState([]);
 
@@ -27,34 +35,42 @@ const UserDetails = ({ values, handleChange }) => {
   }));
   const classes = styles();
 
+  const detail=(e,obj)=>{
+    handleChange('name',obj.nameOfPatient);
+    handleChange('age',obj.age);
+    handleChange('gender',obj.gender);
+ }
+
   return (
-    // <React.Fragment>
-    //   <Title stepTitle='Enter your user details' />
-    //   <br />
-    //   <TextField
-    //     className={classes.textField}
-    //     label='Your Name'
-    //     onChange={handleChange('name')}
-    //     defaultValue={values.name}
-    //   />
-    //   <br />
-    //   <TextField
-    //     className={classes.textField}
-    //     label='Your Address'
-    //     onChange={handleChange('address')}
-    //     defaultValue={values.address}
-    //   />
-    //   <br />
-    //   <TextField
-    //     className={classes.textField}
-    //     type='email'
-    //     label='Your email address'
-    //     onChange={handleChange('email')}
-    //     defaultValue={values.email}
-    //   />
-    // </React.Fragment>
+    
     <>
-    <Patientcard patient ={patient}/>
+    {/* <Patientcard patient ={patient}/> */}
+    {patient.map((obj, index) => (
+        <Card key={index} sx={{ maxWidth: 345 }} style={{ margin: 8 }} onClick={(e)=>{detail(e,obj)}} >
+          <CardActionArea >
+            <CardContent  >
+
+                <Typography  gutterBottom variant="h5" component="div">
+                  <strong>Name : {obj.nameOfPatient} </strong><br />
+                  <strong>Age : {obj.age} </strong><br />
+                  <strong>Gender : {obj.gender} </strong>
+
+                </Typography>
+
+              
+              <Typography variant="body2" color="text.secondary">
+                This Description for test.
+              </Typography>
+              
+            </CardContent>
+          </CardActionArea>
+        </Card>
+        
+
+      ))}
+      
+
+
 
     </>
   );
