@@ -10,10 +10,10 @@ export default function Testcard({ tests }) {
   return (
     <>
       {tests.map((obj, index) => (
-        <Card sx={{ maxWidth: 345 }} style={{ margin: 8 }} >
+        <Card key={index} sx={{ maxWidth: 345 }} style={{ margin: 8 }} >
           
           <CardActionArea >
-            <CardContent  key={index}>
+            <CardContent >
              
                 <Typography gutterBottom variant="h5" component="div">
                   <strong>Name of test: {obj.nameOfTest} </strong><br />

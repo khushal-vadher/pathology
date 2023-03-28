@@ -7,6 +7,7 @@ const createNewAppointment = async (req, res, next) => {
         // console.log(req.body.name);
     } catch (err) {
         // res.status(500).json(err);
+        console.log("ERRRRR")
         next(err);
     }
 };

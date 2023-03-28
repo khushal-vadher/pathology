@@ -1,44 +1,48 @@
-import React from 'react';
-import { List, ListItem, ListItemText } from '@material-ui/core/';
-import { makeStyles } from '@material-ui/core/styles';
-import Title from '../layout/Title';
+import React from "react";
+import { List, ListItem, ListItemText } from "@material-ui/core/";
+import { makeStyles } from "@material-ui/core/styles";
+import Title from "../layout/Title";
 
 const Confirm = ({ values }) => {
   const styles = makeStyles((theme) => ({
     list: {
-      width: '30%',
-      margin: '0 auto',
+      width: "30%",
+      margin: "0 auto",
     },
   }));
   const classes = styles();
 
-  const { name, address, email, nameOfTest, slot, doctor,doctorEmail } = values;
+  const { name, address, email, nameOfTest, slot, doctor, doctorEmail } =
+    values;
 
   return (
     <React.Fragment>
-      <Title stepTitle='Check your information' />
+      <Title stepTitle="Check your information" />
       <br />
       <List className={classes.list}>
         <ListItem>
-          <ListItemText primary='Name' secondary={name} />
+          <ListItemText primary="Name Of Test" secondary={values.nameOfTest} />
         </ListItem>
         <ListItem>
-          <ListItemText primary='Address' secondary={address} />
+          <ListItemText primary="Disease" secondary={values.disease} />
         </ListItem>
         <ListItem>
-          <ListItemText primary='Email' secondary={email} />
+          <ListItemText primary="name" secondary={values.name} />
         </ListItem>
         <ListItem>
-          <ListItemText primary='Name of Test' secondary={nameOfTest} />
+          <ListItemText primary="age" secondary={values.age} />
         </ListItem>
         <ListItem>
-          <ListItemText primary='Slot' secondary={slot} />
+          <ListItemText primary="gender" secondary={values.gender} />
         </ListItem>
         <ListItem>
-          <ListItemText primary='Doctor' secondary={doctor} />
+          <ListItemText primary="address" secondary={values.address} />
         </ListItem>
         <ListItem>
-          <ListItemText primary='Doctor Email' secondary={doctorEmail} />
+          <ListItemText primary="time" secondary={values.time} />
+        </ListItem>
+        <ListItem>
+          <ListItemText primary="date" secondary={values.date} />
         </ListItem>
       </List>
     </React.Fragment>
