@@ -13,8 +13,7 @@ const PthologySchema = new mongoose.Schema({
     },
     mobile: {
         type: Number,
-        require: false,
-        unique : true
+        require: false
     },
     email: {
 

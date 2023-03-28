@@ -15,6 +15,7 @@ import Main from './Home';
 import Slot from './steps/Slot';
 import Payment from './steps/Payment';
 import axios from 'axios';
+import Header from './Header/Header';
 
 const UserForm = () => {
   // Styles
@@ -55,13 +56,13 @@ const UserForm = () => {
     return ['Select Report', 'User details', 'Address','Slot', 'Check Details','Payment'];
   };
   const steps = getSteps();
- 
+
   // State variables
   const [appointmentdata, setAppointmentdata] = useState({
     // name: '',
 
     address: '',
-    email: '',
+    // email: '',
     nameOfTest: '',
     slot: '',
     isDocRef: false,
@@ -78,6 +79,8 @@ const UserForm = () => {
   };
   const handleReset = () => {
     setAppointmentdata({
+    
+
       nameOfTest:'',
       disease:'',
       name:'',
@@ -98,9 +101,7 @@ const UserForm = () => {
   let width = useCurrentWidth();
   console.log('Width2: ' + width);
   const userToket = localStorage.getItem("token");
-  const user  = localStorage.getItem("User");
   console.log("Token :" +userToket)
-  console.log(user.email)
   console.log(appointmentdata)
 
 
@@ -113,12 +114,12 @@ const UserForm = () => {
       name : name,
       slot : time,
       date :date,
-      email : user.email
+      email : "temp2@gmail.com"
     }
     
     try{
       const res =await axios.post('/appointment/create',saveData)
-      console.log(res)
+      console.log(res.data)
 
     }catch(err){
       console.log(err)
@@ -128,7 +129,7 @@ const UserForm = () => {
   // Rendering
   return (
     <>
-    <Main />
+      <Header /><br /><br />
       <div className={classes.root}>
         {width > 479 ? (
           <Stepper activeStep={activeStep} alternativeLabel>
