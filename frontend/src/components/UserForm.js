@@ -16,8 +16,12 @@ import Slot from './steps/Slot';
 import Payment from './steps/Payment';
 import axios from 'axios';
 import Header from './Header/Header';
+import { useNavigate } from 'react-router-dom';
 
 const UserForm = () => {
+  const navigator= useNavigate()
+
+  const userid= localStorage.getItem("userid")
   // Styles
   const styles = makeStyles((theme) => ({
     root: {
@@ -59,15 +63,17 @@ const UserForm = () => {
 
   // State variables
   const [appointmentdata, setAppointmentdata] = useState({
-    // name: '',
-
-    address: '',
-    // email: '',
-    nameOfTest: '',
-    slot: '',
-    isDocRef: false,
-    doctor: '',
-    doctorEmail: '',
+    user_id :userid,
+    nameOfTest:'',
+    disease:'',
+    age:20,
+    gender:'',
+    address:'',
+    slot:'',
+    date:'',
+    nameOfPatient :'',
+    sampleReq : '',
+    amount : 500
   });
 
   // Actions
@@ -80,15 +86,18 @@ const UserForm = () => {
   const handleReset = () => {
     setAppointmentdata({
     
-
+      user_id :userid,
       nameOfTest:'',
       disease:'',
-      name:'',
       age:20,
       gender:'',
       address:'',
-      time:'',
+      slot:'',
       date:'',
+      nameOfPatient :'',
+      sampleReq : '',
+      amount : 500
+
     });
     setActiveStep(0);
   };
@@ -108,18 +117,25 @@ const UserForm = () => {
 
   //save appointment 
   const saveAppointment = async() =>{
-    const {nameOfTest,disease,name,age,gender,address,time,date} = appointmentdata;
+    const {user_id,nameOfTest,disease,amount,sampleReq,nameOfPatient, age,gender,address,slot,date} = appointmentdata;
     const saveData = {
       nameOfTest : nameOfTest,
-      name : name,
-      slot : time,
-      date :date,
-      email : "temp2@gmail.com"
+      amount :amount,
+      user_id : userid,
+      disease : disease,
+      sampleReq : sampleReq ,
+      nameOfPatient : nameOfPatient ,
+      age : age,
+      gender : gender,
+      address : address ,
+      slot : slot ,
+      date : date
     }
     
     try{
       const res =await axios.post('/appointment/create',saveData)
       console.log(res.data)
+      navigator("/")
 
     }catch(err){
       console.log(err)

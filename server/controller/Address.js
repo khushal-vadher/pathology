@@ -52,5 +52,20 @@ const getAddresss = async (req, res, next) => {
     }
   };
 
-module.exports = {createNewAddress,updateAddress,deleteAddress,getAddress,getAddresss};
+  
+const getAddressByUserid = async (req, res, next) => {
+  try {
+    const id = req.body.userid
+    // console.log(req.params.userid)
+    const address = await Address.find({
+      user_id : id
+    });
+    console.log(address)
+    res.status(200).json(address);
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports = {createNewAddress,updateAddress,deleteAddress,getAddress,getAddresss,getAddressByUserid};
 

@@ -36,14 +36,14 @@ const AddressForm = ({ handleChange }) => {
   };
 
   const navigate = useNavigate();
+  const userid = localStorage.getItem("userid");
   useEffect(() => {
     const Fetch = async () => {
-      // const tests ;
-      await fetch("/patient/")
-        .then((res) => res.json())
-        //  .then(dt => dt.stringyfy())
-        .then((data) => setAddress(data));
-      // console.log(tests);
+      try{
+        await axios.post(`/address/get`,{userid}).then((res)=>{setAddress(res.data)})
+      }catch(err){
+        console.log(err)
+      }
     };
     Fetch();
   }, []);
@@ -57,8 +57,8 @@ const AddressForm = ({ handleChange }) => {
   // const classes = styles();
 
   const detail = (e, obj) => {
-    handleChange("address", obj.address[0]);
-    setClickAdress(obj.address[0]);
+    handleChange("address", obj.address);
+    setClickAdress(obj.address);
   };
 
   return (
@@ -90,7 +90,7 @@ const AddressForm = ({ handleChange }) => {
           <CardActionArea>
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
-                <strong> {obj.address[0]} </strong>
+                <strong> {obj.address} </strong>
               </Typography>
 
               <Typography variant="body2" color="text.secondary">

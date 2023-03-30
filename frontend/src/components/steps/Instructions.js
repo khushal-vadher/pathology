@@ -36,7 +36,9 @@ function Instructions({ handleChange }) {
 
   const detail = (e, obj) => {
     handleChange('nameOfTest', obj.nameOfTest);
-    handleChange('disease', obj.disease[0]);
+    handleChange('disease', obj.disease);
+    handleChange('amount', obj.amount);
+    handleChange('sampleReq', obj.sampleReq);
   }
 
   return (
@@ -54,7 +56,6 @@ function Instructions({ handleChange }) {
                 <strong>Name of test: {obj.nameOfTest} </strong><br />
                 <strong>Disease :</strong>
                 <strong> {obj.disease} </strong><br />
-                <strong> {obj.disease} </strong>
                 <strong>Price :</strong>
                 <strong> {obj.amount} </strong><br />
                 <strong>Required Test Sample :</strong>

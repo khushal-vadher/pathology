@@ -1,6 +1,6 @@
 const express = require('express');
 const createError = require('../controller/error.js');
-const {createNewPatient,updatePatient,deletePatient,getPatient,getPatients} = require("../controller/Patient.js")
+const {createNewPatient,updatePatient,deletePatient,getPatient,getPatients,getPatientByUserid} = require("../controller/Patient.js")
 const router = express.Router();
 
 
@@ -15,6 +15,10 @@ router.put("/update/:id",updatePatient);
 
 //DELETE
 router.delete("/delete/:id",deletePatient);
+
+
+//GET BY USER ID
+router.post("/get", getPatientByUserid);
 
 //GET
 router.get("/:id", getPatient);

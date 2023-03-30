@@ -7,14 +7,11 @@ const PthologySchema = new mongoose.Schema({
         type : String,
         require : true
     },
-    user:{
+    user_id:{ //objectId of logged in user
         type: String,
         require :true
     },
-    address:{
-        type : [String], // list of disease for which this test can be done
-        require: true
-    },
+    
     age : {
         type : Number,
         require : true

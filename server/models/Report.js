@@ -6,7 +6,7 @@ const PthologySchema = new mongoose.Schema({
         type : String,
         require: true
     },
-    nameOfReport :{
+    nameOfTest :{
         type : String, //simply its name of test
         require : true
     },

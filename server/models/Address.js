@@ -2,8 +2,12 @@ const mongoose = require('mongoose');
 const {Schema} = mongoose;
 
 const PthologySchema = new mongoose.Schema({
-    nameOfTest :{
-        type : [String],
+    user_id :{ //Object id of logged in user
+        type : String,
+        require :true
+    },
+    address :{
+        type : String,
         require : true
     },
     

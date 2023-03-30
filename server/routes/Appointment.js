@@ -1,6 +1,6 @@
 const express = require('express');
 const createError = require('../controller/error.js');
-const  {createNewAppointment,updateAppointment,deleteAppointment,getAppointment,getAppointments}  = require("../controller/Appointment.js");
+const  {createNewAppointment,updateAppointment,deleteAppointment,getAppointment,getAppointments, getAppointmentByUserid}  = require("../controller/Appointment.js");
 
 const router = express.Router();
 
@@ -23,6 +23,9 @@ router.get("/:id", getAppointment);
 
 //GET ALL
 router.get("/", getAppointments);
+
+//GET APPOINEMENT BY USER ID
+router.post("/get",getAppointmentByUserid)
 
 
 module.exports = router;

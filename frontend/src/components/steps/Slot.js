@@ -1,10 +1,10 @@
 import React from "react";
-// import {TimePickerComponent} from "@syncfusion/ej2-react-calendars";
+// import {slotPickerComponent} from "@syncfusion/ej2-react-calendars";
 // import { Select } from "@material-ui/core";
 // import * as CronofyElements from "cronofy-elements";
 import "./Slot.css";
 const Slot = ({ handleChange }) => {
-  const s = ['Select Time', '9 to 10', '10 to 11', '11 to 12', '3 to 4', '4 to 5', '5 to 6', '6 to 7'];
+  const s = ['Select slot', '9 to 10', '10 to 11', '11 to 12', '3 to 4', '4 to 5', '5 to 6', '6 to 7'];
   // let x = document.getElementById("date").value;
 
   const detail = (e) => {
@@ -16,7 +16,7 @@ const Slot = ({ handleChange }) => {
   }
   return (
     <>
-      <div className="app-time">
+      <div className="app-slot">
         <div>
           <div>
 
@@ -28,37 +28,37 @@ const Slot = ({ handleChange }) => {
           <p>select Timing </p>
           <p>9:00AM to 12:00PM</p>
           <div className="app-check">
-            <input type="radio" className="option-input radio" name="time" value='9:00 AM' onClick={(e) => { detail(e) }} />
+            <input type="radio" className="option-input radio" name="slot" value='9:00 AM' onClick={(e) => { detail(e) }} />
             <div className="app-border">
 
               <label className="app-label">9:00 AM
               </label>
             </div>
-            <input type="radio" className="option-input radio" name="time" value='9:30 AM' onClick={(e) => { detail(e) }} />
+            <input type="radio" className="option-input radio" name="slot" value='9:30 AM' onClick={(e) => { detail(e) }} />
             <div className="app-border">
 
               <label className="app-label">9:30 AM
               </label>
             </div>
-            <input type="radio" className="option-input radio" name="time" value='10:00 AM' onClick={(e) => { detail(e) }} />
+            <input type="radio" className="option-input radio" name="slot" value='10:00 AM' onClick={(e) => { detail(e) }} />
             <div className="app-border">
 
               <label className="app-label">10:00 AM
               </label>
             </div>
-            <input type="radio" className="option-input radio" name="time" value='10:30 AM' onClick={(e) => { detail(e) }} />
+            <input type="radio" className="option-input radio" name="slot" value='10:30 AM' onClick={(e) => { detail(e) }} />
             <div className="app-border">
 
               <label className="app-label">10:30 AM
               </label>
             </div>
-            <input type="radio" className="option-input radio" name="time" value='11:00 AM' onClick={(e) => { detail(e) }} />
+            <input type="radio" className="option-input radio" name="slot" value='11:00 AM' onClick={(e) => { detail(e) }} />
             <div className="app-border">
 
               <label className="app-label">11:00 AM
               </label>
             </div>
-            <input type="radio" className="option-input radio" name="time" value='11:30 AM' onClick={(e) => { detail(e) }} />
+            <input type="radio" className="option-input radio" name="slot" value='11:30 AM' onClick={(e) => { detail(e) }} />
             <div className="app-border">
 
               <label className="app-label">11:30 AM
@@ -78,37 +78,37 @@ const Slot = ({ handleChange }) => {
         <label className="app-label">1:00 PM
         </label>
       </div> */}
-            <input type="radio" className="option-input radio" name="time" value='1:30 PM' onClick={(e) => { detail(e) }} />
+            <input type="radio" className="option-input radio" name="slot" value='1:30 PM' onClick={(e) => { detail(e) }} />
             <div className="app-border">
 
               <label className="app-label">1:30 PM
               </label>
             </div>
-            <input type="radio" className="option-input radio" name="time" value='2:00 PM' onClick={(e) => { detail(e) }} />
+            <input type="radio" className="option-input radio" name="slot" value='2:00 PM' onClick={(e) => { detail(e) }} />
             <div className="app-border">
 
               <label className="app-label">2:00 PM
               </label>
             </div>
-            <input type="radio" className="option-input radio" name="time" value='2:30 PM' onClick={(e) => { detail(e) }} />
+            <input type="radio" className="option-input radio" name="slot" value='2:30 PM' onClick={(e) => { detail(e) }} />
             <div className="app-border">
 
               <label className="app-label">2:30 PM
               </label>
             </div>
-            <input type="radio" className="option-input radio" name="time" value='3:00 PM' onClick={(e) => { detail(e) }} />
+            <input type="radio" className="option-input radio" name="slot" value='3:00 PM' onClick={(e) => { detail(e) }} />
             <div className="app-border">
 
               <label className="app-label">3:00 PM
               </label>
             </div>
-            <input type="radio" className="option-input radio" name="time" value='3:30 PM' onClick={(e) => { detail(e) }} />
+            <input type="radio" className="option-input radio" name="slot" value='3:30 PM' onClick={(e) => { detail(e) }} />
             <div className="app-border">
 
               <label className="app-label">3:30 PM
               </label>
             </div>
-            <input type="radio" className="option-input radio" name="time" value='4:00 PM' onClick={(e) => { detail(e) }} />
+            <input type="radio" className="option-input radio" name="slot" value='4:00 PM' onClick={(e) => { detail(e) }} />
             <div className="app-border">
 
               <label className="app-label">4:00 PM

@@ -15,9 +15,13 @@ import Button from "@mui/material/Button";
 import UpdateIcon from "@mui/icons-material/Update";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
+import axios from "axios";
 const UserDetails = ({ handleChange }) => {
+  var userid = localStorage.getItem("userid")
+  // userid = JSON.parse(userid)
   const [patient, setPatient] = useState([]);
-  const [newPatient, setNewpatient] = useState({});
+  const [newPatient, setNewpatient] = useState([]);
+
   const [show, setShow] = useState(false);
   const onchanged = (e) => {
     setNewpatient((newPatient) => ({
@@ -38,15 +42,23 @@ const UserDetails = ({ handleChange }) => {
   useEffect(() => {
     const Fetch = async () => {
       // const tests ;
-      await fetch("/patient/")
-        .then((res) => res.json())
-        //  .then(dt => dt.stringyfy())
-        .then((data) => setPatient(data));
+      // await fetch("/patient/:userid",userid)
+      //   .then((res) => res.json())
+      //   //  .then(dt => dt.stringyfy())
+      //   .then((data) => setPatient(data));
       // console.log(tests);
+      console.log(userid);
+      // const id = JSON.parse(userid)
+      try{
+        await axios.post(`/patient/get`,{userid}).then((res)=>{setNewpatient(res.data)})
+      }catch(err){
+        console.log(err)
+      }
     };
     Fetch();
   }, []);
-  console.log(patient);
+  console.log("Patient")
+  console.log(newPatient);
 
   const styles = makeStyles((theme) => ({
     textField: {
@@ -56,10 +68,10 @@ const UserDetails = ({ handleChange }) => {
   const classes = styles();
 
   const detail = (e, obj) => {
-    handleChange("name", obj.nameOfPatient);
+    handleChange("nameOfPatient", obj.nameOfPatient);
     handleChange("age", obj.age);
     handleChange("gender", obj.gender);
-    setNewpatient(obj);
+    // setNewpatient(obj);
   };
 
   return (
@@ -74,7 +86,7 @@ const UserDetails = ({ handleChange }) => {
       </Button>
       }
       <br></br>
-      {patient.map((obj, index) => (
+      {newPatient.map((obj, index) => (
         <Card
           key={index}
           sx={{ maxWidth: 345 }}
