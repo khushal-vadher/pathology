@@ -7,7 +7,7 @@ const PthologySchema = new mongoose.Schema({
         require : true
     },
     disease:{
-        type : [String], // list of disease for which this test can be done
+        type : String, // list of disease for which this test can be done
         require: true
     },
     amount : {
@@ -17,7 +17,7 @@ const PthologySchema = new mongoose.Schema({
     // collection of sample required for test 
     //eg : bool , urine, saliva, sputum, feces, semen, and other bodily fluids 
     sampleReq :{
-        type : [String],
+        type : String,
         require : true
 
     }

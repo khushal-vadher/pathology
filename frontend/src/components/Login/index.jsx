@@ -19,12 +19,12 @@ const Login = () => {
 		try {
 			const url = "/auth";
 			const res = await axios.post(url, data);
-			// console.log(res.data)
-			localStorage.setItem("token", res.data);
-
-			localStorage.setItem("User",res.user)
 			console.log(res.data)
-			console.log(res.data.user)
+			localStorage.setItem("token", JSON.stringify(res.data.data));
+
+			localStorage.setItem("userid",res.data.user._id)
+			// console.log(res.data)
+			// console.log(res.data.user)
 			nav("/")
 
 		} catch (error) {

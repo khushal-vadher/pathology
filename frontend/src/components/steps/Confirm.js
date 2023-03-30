@@ -27,7 +27,14 @@ const Confirm = ({ values }) => {
           <ListItemText primary="Disease" secondary={values.disease} />
         </ListItem>
         <ListItem>
-          <ListItemText primary="name" secondary={values.name} />
+          <ListItemText primary="amount" secondary={values.amount} />
+        </ListItem>
+        <ListItem>
+          <ListItemText primary="sampleReq" secondary={values.sampleReq} />
+        </ListItem>
+        
+        <ListItem>
+          <ListItemText primary="name" secondary={values.nameOfPatient} />
         </ListItem>
         <ListItem>
           <ListItemText primary="age" secondary={values.age} />
@@ -39,7 +46,7 @@ const Confirm = ({ values }) => {
           <ListItemText primary="address" secondary={values.address} />
         </ListItem>
         <ListItem>
-          <ListItemText primary="time" secondary={values.time} />
+          <ListItemText primary="time" secondary={values.slot} />
         </ListItem>
         <ListItem>
           <ListItemText primary="date" secondary={values.date} />

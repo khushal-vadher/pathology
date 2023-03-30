@@ -5,6 +5,7 @@ import Login from "./components/Login";
 import UserForm from "./components/UserForm";
 import TestList from "./components/TestList/TestList";
 import Home from "./components/Home/index.jsx";
+import Tests from "./components/DisplayUserTest/Tests"
 function App() {
 
 	const user = localStorage.getItem("token");
@@ -19,6 +20,7 @@ function App() {
 			{user && <Route path="/form" exact element={<UserForm />} />}
 			<Route path="/form" element={<Navigate replace to="/login" />} />
 			<Route path="/test" exact element={<TestList />} />
+			<Route path="/alltest" exact element={<Tests />} />
 		</Routes>
 	);
 }

@@ -7,6 +7,7 @@ const connectDB = require('./config/dbconnect.js');
 require('dotenv').config();
 const userRoutes = require("./routes/User.js")
 const authRoutes = require("./routes/Auth.js")
+const Address = require('./routes/Address.js')
 // const cookie = require('cookie')
 const bodyParser = require('body-parser');
 const Patient = require('./routes/Patient.js');
@@ -32,6 +33,7 @@ app.use('/appointment',AppointmentRoutes); //for user
 app.use('/test',TestRoutes); //for admin (CRUD)
 app.use('/report',Report); //for admin (get getAll)
 app.use('/patient',Patient)
+app.use('/address',Address)
 app.post('/mail',mail)
 
 app.use((err,req,res,next)=>{

@@ -43,6 +43,22 @@ const getPatient = async (req, res, next) => {
       next(err);
     }
   };
+
+
+  
+const getPatientByUserid = async (req, res, next) => {
+  try {
+    const id = req.body.userid
+    // console.log(req.params.userid)
+    const patient = await Patient.find({
+      user_id : id
+    });
+    console.log(patient)
+    res.status(200).json(patient);
+  } catch (err) {
+    next(err);
+  }
+};
 const getPatients = async (req, res, next) => {
     try {
       const patients = await Patient.find();
@@ -52,5 +68,5 @@ const getPatients = async (req, res, next) => {
     }
   };
 
-module.exports = {createNewPatient,updatePatient,deletePatient,getPatient,getPatients};
+module.exports = {createNewPatient,updatePatient,deletePatient,getPatient,getPatients,getPatientByUserid};
 
