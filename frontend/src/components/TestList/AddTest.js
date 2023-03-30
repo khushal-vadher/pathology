@@ -6,8 +6,8 @@ function AddTest() {
     const [addTest, setAddTest] = useState({
         nameOfTest: '',
         amount: 200,
-        sampleReq: [],
-        disease: []
+        sampleReq: "",
+        disease: ""
     })
     const nav = useNavigate()
     const [submit,setSubmit] = useState(0);

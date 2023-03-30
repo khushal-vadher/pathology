@@ -2,6 +2,7 @@ import Footer from "../Footer/Footer";
 import About from "../About/About";
 import Banner from "../Banner/Banner";
 import Header from "../Header/Header";
+import Contact from "../Contact/Contact";
 const Main = () => {
 	
 	
@@ -16,6 +17,7 @@ const Main = () => {
 			<Header />
 			<Banner />
 			<About />
+			<Contact />
 			<Footer />
 		</div>
 	);

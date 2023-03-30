@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import Title from "../layout/Title";
@@ -19,44 +19,56 @@ import axios from "axios";
 const UserDetails = ({ handleChange }) => {
   var userid = localStorage.getItem("userid")
   // userid = JSON.parse(userid)
-  const [patient, setPatient] = useState([]);
   const [newPatient, setNewpatient] = useState([]);
-
+  const [selectedPatient, setSelectedPatient] = useState({
+    nameOfPatient: "",
+    user_id:userid,
+    age: 18,
+    gender: ""
+  });
   const [show, setShow] = useState(false);
+  const [reducer,setReducer] = useReducer(x=>x+1,0);
   const onchanged = (e) => {
-    setNewpatient((newPatient) => ({
-      ...newPatient,
+    setSelectedPatient((selectedPatient) => ({
+      ...selectedPatient,
       [e.target.name]: e.target.value,
     }));
   };
 
   const addNewPatient = async (e) => {
     e.preventDefault();
+    try {
+      await axios.post("/patient/create", selectedPatient).then((res) => { setSelectedPatient(res.data) })
+      setReducer()
+    } catch (err) {
+      console.log(err)
+    }
+    
   };
   const updatePatient = async (e) => {
     e.preventDefault();
+    try {
+      await axios.post(`/patient/update/${patient_id}`, selectedPatient).then((res) => { setSelectedPatient(res.data) })
+      setReducer()
+    } catch (err) {
+      console.log(err)
+    }
   };
   const deletePatient = async (e) => {
     e.preventDefault();
   };
   useEffect(() => {
     const Fetch = async () => {
-      // const tests ;
-      // await fetch("/patient/:userid",userid)
-      //   .then((res) => res.json())
-      //   //  .then(dt => dt.stringyfy())
-      //   .then((data) => setPatient(data));
-      // console.log(tests);
+      
       console.log(userid);
-      // const id = JSON.parse(userid)
-      try{
-        await axios.post(`/patient/get`,{userid}).then((res)=>{setNewpatient(res.data)})
-      }catch(err){
+      try {
+        await axios.post(`/patient/get`, { userid }).then((res) => { setNewpatient(res.data) })
+      } catch (err) {
         console.log(err)
       }
     };
     Fetch();
-  }, []);
+  }, [reducer]);
   console.log("Patient")
   console.log(newPatient);
 
@@ -66,22 +78,26 @@ const UserDetails = ({ handleChange }) => {
     },
   }));
   const classes = styles();
-
+  var patient_id;
+  const handlePatientId = (value) => {
+    patient_id = value
+  };
   const detail = (e, obj) => {
-    handleChange("nameOfPatient", obj.nameOfPatient);
+    handleChange("nameOfPatient", obj.nameOfPatient); //set the main useState of appoinetment
     handleChange("age", obj.age);
     handleChange("gender", obj.gender);
-    // setNewpatient(obj);
+    setSelectedPatient(obj);
+    handlePatientId(obj._id) //try by creating useState for patientid
   };
 
   return (
-    <>
+    <>  
       <br></br>
       {/* <Patientcard patient ={patient}/> */}
       {
-        !show && <spam style={{ fontSize: '20px' }}>If you are new Patient ? </spam>
+        !show && <spam style={{ fontSize: '20px' }}>Do you want to add new patient details ? </spam>
       }
-      {!show && <Button color="secondary" onClick={(e) => setShow(!show)} startIcon={<AddIcon />} style={{ marginLeft: '200px' }}>
+      {!show && <Button color="secondary" onClick={(e) => setShow(!show)} startIcon={<AddIcon />} style={{ marginLeft: '200px', color: '#3bb19b' }}>
         Add
       </Button>
       }
@@ -139,8 +155,8 @@ const UserDetails = ({ handleChange }) => {
               <input
                 type="text"
                 className="form-control"
-                value={newPatient.nameOfPatient}
-                onchange={(e) => onchanged(e)}
+                defaultValue={selectedPatient.nameOfPatient}
+                onChange={(e) => onchanged(e)}
                 name="nameOfPatient"
                 required
               />
@@ -151,9 +167,9 @@ const UserDetails = ({ handleChange }) => {
               <input
                 type="text"
                 className="form-control"
-                value={newPatient.age}
+                defaultValue={selectedPatient.age}
                 onChange={(e) => onchanged(e)}
-                name="nameOfTest"
+                name="age"
                 required
               />
             </div>
@@ -163,12 +179,14 @@ const UserDetails = ({ handleChange }) => {
               <input
                 type="text"
                 className="form-control"
-                value={newPatient.gender}
+                defaultValue={selectedPatient.gender}
                 onChange={(e) => onchanged(e)}
-                name="nameOfTest"
+                name="gender"
                 required
               />
             </div>
+
+            {/* <p>{selectedPatient._id}</p> */}
           </div>
           <div className="modal-footer">
             <Button

@@ -17,6 +17,7 @@ import Payment from './steps/Payment';
 import axios from 'axios';
 import Header from './Header/Header';
 import { useNavigate } from 'react-router-dom';
+import Footer from './Footer/Footer';
 
 const UserForm = () => {
   const navigator= useNavigate()
@@ -222,6 +223,9 @@ const UserForm = () => {
           )}
         </div>
       </div>
+      <br />
+      <br />
+      <Footer />
     </>
   );
 };

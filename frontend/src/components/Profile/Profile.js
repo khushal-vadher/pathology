@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
 import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 
 const Profile = () => {
     const [data, setData] = useState({
@@ -99,6 +100,7 @@ const Profile = () => {
                     </div>
                 </div>
             </div>
+            <Footer />
         </>
     );
 };
