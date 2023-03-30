@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-function Instructions({handleChange}) {
+function Instructions({ handleChange }) {
   // const {test,loading ,error} = useFetch("/test/");
   const url = "/test/";
   // console.log(test);
@@ -34,9 +34,9 @@ function Instructions({handleChange}) {
   // const data = JSON.parse()
   //console.log(test.data)
 
-  const detail=(e,obj)=>{
-     handleChange('nameOfTest',obj.nameOfTest);
-     handleChange('disease',obj.disease[0]);
+  const detail = (e, obj) => {
+    handleChange('nameOfTest', obj.nameOfTest);
+    handleChange('disease', obj.disease[0]);
   }
 
   return (
@@ -45,26 +45,30 @@ function Instructions({handleChange}) {
       <br></br>
       {/* <Testcard tests={tests} /> */}
       {tests.map((obj, index) => (
-        <Card  key={index} sx={{ maxWidth: 345 }} style={{ margin: 8 }}  onClick={(e)=>{detail(e,obj)} }>
-          
+        <Card key={index} sx={{ maxWidth: 345 }} style={{ margin: 8 }} onClick={(e) => { detail(e, obj) }}>
+
           <CardActionArea>
             <CardContent >
-             
-                <Typography gutterBottom variant="h5" component="div" >
-                  <strong>Name of test: {obj.nameOfTest} </strong><br />
-                  <strong>Disease :</strong>
-                 <strong> {obj.disease[0]} </strong><br />
-                 <strong> {obj.disease[1]} </strong>
+
+              <Typography gutterBottom variant="h5" component="div" >
+                <strong>Name of test: {obj.nameOfTest} </strong><br />
+                <strong>Disease :</strong>
+                <strong> {obj.disease} </strong><br />
+                <strong> {obj.disease} </strong>
+                <strong>Price :</strong>
+                <strong> {obj.amount} </strong><br />
+                <strong>Required Test Sample :</strong>
+                <strong> {obj.samplReq} </strong>
 
 
-                  
-                </Typography>
 
-            
+              </Typography>
+
+
               <Typography variant="body2" color="text.secondary">
                 This Description for test.
               </Typography>
-              
+
             </CardContent>
           </CardActionArea>
         </Card>
