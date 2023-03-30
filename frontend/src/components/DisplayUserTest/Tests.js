@@ -1,28 +1,45 @@
 
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Header from "../Header/Header";
 import './tests.css';
 const Tests = () => {
 
     const [reports, setReports] = useState([])
     const userid = localStorage.getItem("userid")
-
-
-    useEffect(() => {
-
-        const fetchReport = async () => {
+    if (userid === "6425acd05851f274a3fcce71") {
+        var isAdmin = true
+    }
+    if (isAdmin) {
+        var fetchReport = async () => {
             try {
-                await axios.post(`/appointment/get`,{userid}).then((res) => setReports(res.data))
+                await axios.get(`/appointment/`).then((res) => setReports(res.data))
 
             } catch (err) {
                 console.log(err)
             }
         }
+
+    } else {
+        var fetchReport = async () => {
+            try {
+                await axios.post(`/appointment/get`, { userid }).then((res) => setReports(res.data))
+
+            } catch (err) {
+                console.log(err)
+            }
+        }
+    }
+
+    useEffect(() => {
+
+
         fetchReport();
     }, [])
 
     return (
         <>
+            <Header />
 
             <div className="container-lg">
                 <div className="table-responsive">
@@ -56,7 +73,7 @@ const Tests = () => {
                                     <th>Address</th>
                                     <th>Slot time</th>
                                     <th>Date</th>
-                                    
+
 
                                 </tr>
                             </thead>
