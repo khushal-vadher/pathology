@@ -3,7 +3,7 @@ import React, { useReducer } from 'react';
 import { useState, useEffect } from 'react';
 import AddTest from './AddTest';
 import './testlist.css';
-import Home from '../Home/index.jsx'
+import Header from '../Header/Header';
 function TestList() {
     const [test, setTest] = useState([])
     const [t, setT] = useState({});
@@ -94,7 +94,7 @@ function TestList() {
 
     return (
         <>
-        <Home />
+        <Header />
 
             <div className="container-xl">
                 <div className="table-responsive">
@@ -170,7 +170,7 @@ function TestList() {
                     <div className="modal-content">
                         <form>
                             <div className="modal-header">
-                                <h4 className="modal-title">Edit Employee</h4>
+                                <h4 className="modal-title">Edit Test</h4>
                                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             </div>
                             <div className="modal-body">

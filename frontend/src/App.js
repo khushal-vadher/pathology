@@ -6,10 +6,15 @@ import UserForm from "./components/UserForm";
 import TestList from "./components/TestList/TestList";
 import Home from "./components/Home/index.jsx";
 import Tests from "./components/DisplayUserTest/Tests"
+import Profile from "./components/Profile/Profile";
 function App() {
 
 	const user = localStorage.getItem("token");
 	console.log(user)
+	const userid = localStorage.getItem("userid")
+	if(userid === "6425acd05851f274a3fcce71"){
+		var isAdmin = true
+	}
 
 	return (
 		<Routes>
@@ -19,8 +24,10 @@ function App() {
 			<Route path="/" element={<Navigate replace to="/login" />} />
 			{user && <Route path="/form" exact element={<UserForm />} />}
 			<Route path="/form" element={<Navigate replace to="/login" />} />
-			<Route path="/test" exact element={<TestList />} />
-			<Route path="/alltest" exact element={<Tests />} />
+			{isAdmin && <Route path="/test" exact element={<TestList />} />}
+			{isAdmin && <Route path="/alltest" exact element={<Tests />} />}
+			{user && <Route path="/profile" exact element={<Profile />}/>}
+			<Route path="/profile" exact element={<Navigate replace to="/login" />} />
 		</Routes>
 	);
 }

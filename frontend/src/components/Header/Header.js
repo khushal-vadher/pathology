@@ -7,8 +7,14 @@ function Header(props) {
 	const handleLogout = () => {
 		localStorage.removeItem("token");
 		localStorage.removeItem("User");
-		nav("/login")		
+		localStorage.removeItem("userid");
+		nav("/login")
 	};
+
+	const userid = localStorage.getItem("userid")
+	if(userid === "6425acd05851f274a3fcce71"){
+		var isAdmin = true
+	}
 	return (
 		<div>
 			<header>
@@ -51,12 +57,18 @@ function Header(props) {
 
 								</li>
 
-								<li className="nav-item">
-									<NavLink to="/form"><a className="nav-link" >Appointment</a></NavLink>
-								</li>
+								{!isAdmin && <li className="nav-item">
+									<a className="nav-link" ><NavLink to="/form">Appointment</NavLink></a>
+								</li>}
+								{isAdmin && <li className="nav-item">
+									<a className="nav-link" ><NavLink to="/alltest">Appointment</NavLink></a> {/*  appointmnt link work as display all report*/}
+								</li>}
 								<li className="nav-item">
 									<a className="nav-link" ><NavLink to="/profile" >Profile</NavLink></a>
 								</li>
+								{isAdmin && <li className="nav-item">
+									<a className="nav-link" ><NavLink to="/test" >Test</NavLink></a>
+								</li>}
 								<li className="nav-item">
 									<a className="nav-link" ><NavLink to="/contact" >Contact</NavLink></a>
 								</li>
