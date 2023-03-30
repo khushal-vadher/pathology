@@ -59,10 +59,7 @@ function Instructions({ handleChange }) {
                 <strong>Price :</strong>
                 <strong> {obj.amount} </strong><br />
                 <strong>Required Test Sample :</strong>
-                <strong> {obj.samplReq} </strong>
-
-
-
+                <strong> {obj.sampleReq} </strong>
               </Typography>
 
 

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
 import { useNavigate } from "react-router-dom";
 import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 
 const Login = () => {
 	const [data, setData] = useState({ email: "", password: "" });
@@ -84,6 +85,7 @@ const Login = () => {
 					</div>
 				</div>
 			</div>
+			<Footer />
 		</div>
 	);
 };

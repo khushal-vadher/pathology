@@ -7,6 +7,7 @@ import TestList from "./components/TestList/TestList";
 import Home from "./components/Home/index.jsx";
 import Tests from "./components/DisplayUserTest/Tests"
 import Profile from "./components/Profile/Profile";
+import Contact from "./components/Contact/Contact";
 function App() {
 
 	const user = localStorage.getItem("token");
@@ -20,12 +21,14 @@ function App() {
 		<Routes>
 			<Route path="/" exact element={<Home />} />
 			<Route path="/signup" exact element={<Signup />} />
+			<Route path="/contact" exact element={<Contact />} />
 			<Route path="/login" exact element={<Login />} />
 			<Route path="/" element={<Navigate replace to="/login" />} />
 			{user && <Route path="/form" exact element={<UserForm />} />}
 			<Route path="/form" element={<Navigate replace to="/login" />} />
 			{isAdmin && <Route path="/test" exact element={<TestList />} />}
 			{isAdmin && <Route path="/alltest" exact element={<Tests />} />}
+			{!isAdmin && <Route path="/report" exact element={<Tests />} />}
 			{user && <Route path="/profile" exact element={<Profile />}/>}
 			<Route path="/profile" exact element={<Navigate replace to="/login" />} />
 		</Routes>

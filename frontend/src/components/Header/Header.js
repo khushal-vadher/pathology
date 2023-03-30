@@ -60,6 +60,9 @@ function Header(props) {
 								{!isAdmin && <li className="nav-item">
 									<a className="nav-link" ><NavLink to="/form">Appointment</NavLink></a>
 								</li>}
+								{!isAdmin && <li className="nav-item">
+									<a className="nav-link" ><NavLink to="/report">Reports</NavLink></a>
+								</li>}
 								{isAdmin && <li className="nav-item">
 									<a className="nav-link" ><NavLink to="/alltest">Appointment</NavLink></a> {/*  appointmnt link work as display all report*/}
 								</li>}

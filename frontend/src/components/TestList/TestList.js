@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import AddTest from './AddTest';
 import './testlist.css';
 import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 function TestList() {
     const [test, setTest] = useState([])
     const [t, setT] = useState({});
@@ -89,7 +90,6 @@ function TestList() {
         }
         setReducerval();
     }
-     
     
 
     return (
@@ -135,9 +135,9 @@ function TestList() {
                                             </span>
                                         </td>
                                         <td>{obj.nameOfTest}</td>
-                                        <td>{obj.sampleReq[0]}</td>
+                                        <td>{obj.sampleReq}</td>
                                         <td>{obj.amount}</td>
-                                        <td>{obj.disease[0]}</td>
+                                        <td>{obj.disease}</td>
                                         <td>
 
                                             <a href='#editEmployeeModal' onClick={() => { setUpdateTest(obj) }} className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
@@ -163,7 +163,7 @@ function TestList() {
                 </div>
             </div>
             {/* <!-- Add Modal HTML --> */}
-            <AddTest />
+            <AddTest  />
             {/* <!-- Edit Modal HTML --> */}
             <div id="editEmployeeModal" className="modal fade">
                 <div className="modal-dialog">
@@ -208,7 +208,7 @@ function TestList() {
                     <div className="modal-content">
                         <form>
                             <div className="modal-header">
-                                <h4 className="modal-title">Delete Employee</h4>
+                                <h4 className="modal-title">Delete Test</h4>
                                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             </div>
                             <div className="modal-body">
@@ -223,6 +223,7 @@ function TestList() {
                     </div>
                 </div>
             </div>
+            <Footer />
         </>
     );
 }

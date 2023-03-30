@@ -1,6 +1,7 @@
 
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import './tests.css';
 const Tests = () => {
@@ -101,7 +102,7 @@ const Tests = () => {
                     </div>
                 </div>
             </div>
-
+            <Footer />
         </>
     );
 }
