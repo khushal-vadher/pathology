@@ -10,6 +10,8 @@ const Tests = () => {
     const userid = localStorage.getItem("userid")
     if (userid === "6425acd05851f274a3fcce71") {
         var isAdmin = true
+    }else{
+        isAdmin = false
     }
     if (isAdmin) {
         var fetchReport = async () => {

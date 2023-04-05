@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
 import Footer from '../Footer/Footer'
 import Header from '../Header/Header'
-
+import {ToastContainer,toast} from'react-toastify';
 const Signup = () => {
 	const [data, setData] = useState({
 		firstName: "",
@@ -24,6 +24,7 @@ const Signup = () => {
 		try {
 			const url = "/users";
 			const { data: res } = await axios.post(url, data);
+			toast.success('you have successfully signed up');
 			navigate("/login");
 			console.log(res.message);
 		} catch (error) {

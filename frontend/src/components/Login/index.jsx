@@ -5,6 +5,7 @@ import styles from "./styles.module.css";
 import { useNavigate } from "react-router-dom";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
+import {ToastContainer,toast} from'react-toastify';
 
 const Login = () => {
 	const [data, setData] = useState({ email: "", password: "" });
@@ -28,6 +29,7 @@ const Login = () => {
 			localStorage.setItem("userid", res.data.user._id)
 			// console.log(res.data)
 			// console.log(res.data.user)
+			toast.success('you have successfully signed in');
 			nav("/")
 
 		} catch (error) {

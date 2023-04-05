@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
+import {ToastContainer,toast} from'react-toastify';
 
 const Profile = () => {
     const [data, setData] = useState({
@@ -23,6 +24,7 @@ const Profile = () => {
         try {
 
             await axios.put(`/users/update/${userid}`, data).then((res) => { setData(res.data) });
+            toast.success('your profile has been updated');
             navigate("/");
             console.log("Updated!");
             console.log(data)
