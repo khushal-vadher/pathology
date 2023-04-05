@@ -16,6 +16,9 @@ import UpdateIcon from "@mui/icons-material/Update";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import axios from "axios";
+
+import {ToastContainer,toast} from'react-toastify';
+
 const UserDetails = ({ handleChange }) => {
   var userid = localStorage.getItem("userid")
   // userid = JSON.parse(userid)
@@ -23,7 +26,7 @@ const UserDetails = ({ handleChange }) => {
   const [selectedPatient, setSelectedPatient] = useState({
     nameOfPatient: "",
     user_id:userid,
-    age: 18,
+    age: Number,
     gender: ""
   });
   const [show, setShow] = useState(false);
@@ -39,7 +42,11 @@ const UserDetails = ({ handleChange }) => {
     e.preventDefault();
     try {
       await axios.post("/patient/create", selectedPatient).then((res) => { setSelectedPatient(res.data) })
+      setShow(!show)
       setReducer()
+			toast.success('Patient has been added successfully!');
+    
+
     } catch (err) {
       console.log(err)
     }
@@ -48,14 +55,29 @@ const UserDetails = ({ handleChange }) => {
   const updatePatient = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`/patient/update/${patient_id}`, selectedPatient).then((res) => { setSelectedPatient(res.data) })
+      await axios.put(`/patient/update/${selectedPatient._id}`, selectedPatient).then((res) => { setSelectedPatient(res.data) })
+      setShow(!show)
+
       setReducer()
+
+			toast.success('Patient has been updated successfully!');
+
     } catch (err) {
       console.log(err)
     }
   };
   const deletePatient = async (e) => {
     e.preventDefault();
+    try{
+      await axios.delete(`/patient/delete/${selectedPatient._id}`).then(()=>{setSelectedPatient({})})
+      setShow(!show)
+
+      setReducer()
+			toast.success('Patient has been deleted successfully!');
+
+    }catch(err){
+      console.log(err)
+    }
   };
   useEffect(() => {
     const Fetch = async () => {
@@ -78,16 +100,13 @@ const UserDetails = ({ handleChange }) => {
     },
   }));
   const classes = styles();
-  var patient_id;
-  const handlePatientId = (value) => {
-    patient_id = value
-  };
+  
   const detail = (e, obj) => {
     handleChange("nameOfPatient", obj.nameOfPatient); //set the main useState of appoinetment
     handleChange("age", obj.age);
     handleChange("gender", obj.gender);
     setSelectedPatient(obj);
-    handlePatientId(obj._id) //try by creating useState for patientid
+    // handlePatientId(obj._id) //try by creating useState for patientid
   };
 
   return (
@@ -97,8 +116,8 @@ const UserDetails = ({ handleChange }) => {
       {
         !show && <spam style={{ fontSize: '20px' }}>Do you want to add new patient details ? </spam>
       }
-      {!show && <Button color="secondary" onClick={(e) => setShow(!show)} startIcon={<AddIcon />} style={{ marginLeft: '200px', color: '#3bb19b' }}>
-        Add
+      {!show && <Button color="secondary" onClick={(e) => setShow(!show)}  style={{ marginLeft: '200px', color: '#3bb19b' }}>
+        Add Update Delete
       </Button>
       }
       <br></br>
@@ -138,7 +157,7 @@ const UserDetails = ({ handleChange }) => {
       {show && <div>
         <form>
           <div className="modal-header">
-            <h4 className="modal-title">Add New Patient</h4>
+            <h4 className="modal-title">Patient</h4>
             <button
               type="button"
               className="close"
@@ -190,20 +209,20 @@ const UserDetails = ({ handleChange }) => {
           </div>
           <div className="modal-footer">
             <Button
-              color="secondary"
+              variant="outlined"
               onClick={(e) => addNewPatient(e)}
               startIcon={<AddIcon />}
               style={{ marginLeft: "200px" }}
             >
               Add
-            </Button>
+            </Button><span></span>
             <Button
               variant="outlined"
               onClick={(e) => updatePatient(e)}
               startIcon={<UpdateIcon />}
             >
               Update
-            </Button>
+            </Button><span></span>
 
             <Button
               variant="outlined"

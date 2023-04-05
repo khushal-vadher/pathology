@@ -8,6 +8,7 @@ import { CardActionArea } from '@mui/material';
 export default function Patientcard({ patient }) {
   return (
     <>
+    <h3>Patient</h3>
       {patient.map((obj, index) => (
         <Card   key={index} sx={{ maxWidth: 345 }} style={{ margin: 8 }} >
           <CardActionArea >
@@ -21,9 +22,7 @@ export default function Patientcard({ patient }) {
               </Typography>
 
 
-              <Typography variant="body2" color="text.secondary">
-                This Description for test.
-              </Typography>
+             
 
             </CardContent>
           </CardActionArea>

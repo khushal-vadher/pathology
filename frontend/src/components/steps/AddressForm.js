@@ -19,32 +19,69 @@ import AddIcon from "@mui/icons-material/Add";
 import { Grid } from "@material-ui/core";
 // import SendIcon from '@mui/icons-material/Send';
 // import Stack from '@mui/material/Stack';
+
+import {ToastContainer,toast} from'react-toastify';
+
 const AddressForm = ({ handleChange }) => {
+  const userid = localStorage.getItem("userid");
   const [address, setAddress] = useState([]);
-  const [clickaddress, setClickAdress] = useState("");
+  const [clickaddress, setClickAdress] = useState({
+    address :"",
+    user_id : userid,
+  });
   const [show, setShow] = useState(false);
+  const [addressId,setAddressId] = useState("")
   const [reducer,setReducer] = useReducer(x=>x+1,0);
   
-  const userid = localStorage.getItem("userid");
   //add address to database
   const addNewAddress = async (e) => {
     e.preventDefault();
     const saveObj = {
       user_id : userid,
-      address : clickaddress
+      address : clickaddress.address
     }
     try{
       await axios.post("/address/create",saveObj).then(setReducer())
+      setShow(!show)
+			toast.success('Address has been added successfully!');
+
     }catch(err){
       console.log(err);
     }
   };
+  const onchanged = (e) =>{
+    setClickAdress((clickaddress)=>({
+      ...clickaddress,
+      [e.target.name] : e.target.value
+    }))
+    console.log(clickaddress)
+  }
   //update the address with given id
-  const updateAddress = (e) => {
+  const updateAddress =async (e) => {
     e.preventDefault();
+    try{
+      await axios.put(`/address/update/${clickaddress._id}`,clickaddress)
+      setShow(!show)
+      setReducer()
+			toast.success('Address has been updated successfully!');
+      
+    }catch(err){
+      console.log(err)
+    }
   };
-  const deleteAddress = (e) => {
+  const deleteAddress =async (e) => {
     e.preventDefault();
+    try{
+      await axios.delete(`/address/delete/${clickaddress._id}`)
+      setShow(!show)
+      setReducer()
+			toast.success('Address has been deleted successfully!');
+
+
+    }catch(err){
+      console.log(err)
+    }
+
   };
 
   const navigate = useNavigate();
@@ -69,21 +106,22 @@ const AddressForm = ({ handleChange }) => {
 
   const detail = (e, obj) => {
     handleChange("address", obj.address);
-    setClickAdress(obj.address);
+    setClickAdress(obj);
+    // setAddressId(obj._id);
   };
 
   return (
     <>
       <br></br>
-      {!show && <spam style={{ fontSize: "20px" }}>Add a new Address </spam>}
+      {!show && <spam style={{ fontSize: "20px" }}> Address </spam>}
       {!show && (
         <Button
           color="secondary"
           onClick={(e) => setShow(!show)}
-          startIcon={<AddIcon />}
+          
           style={{ marginLeft: "200px" }}
         >
-          Add
+          Add Upadte Delete
         </Button>
       )}
       <br></br>
@@ -119,7 +157,7 @@ const AddressForm = ({ handleChange }) => {
         <div>
           <form>
             <div className="modal-header">
-              <h4 className="modal-title">Add New Address</h4>
+              <h4 className="modal-title">Address</h4>
               <button
                 type="button"
                 className="close"
@@ -136,24 +174,22 @@ const AddressForm = ({ handleChange }) => {
                 <input
                   type="text"
                   className="form-control"
-                  value={clickaddress}
-                  onChange={(e) => setClickAdress(e.target.value)}
-                  name="nameOfTest"
-                  onClick={(event) => {
-                    updateAddress(event);
-                  }}
+                  value={clickaddress.address}
+                  onChange={(e) =>{onchanged(e)}}
+                  name="address"
+                  
                   required
                 />
               </div>
             </div>
             <div className="modal-footer">
               <Button style={{ display: 'flex', justifyContent: 'left' }}
-                color="secondary"
+                variant="outlined"
                 onClick={(e) => addNewAddress(e)}
                 startIcon={<AddIcon />}
               >
                 Add
-              </Button>
+              </Button><span></span>
               <Button
                 variant="outlined"
                 onClick={(e) => updateAddress(e)}
@@ -161,7 +197,7 @@ const AddressForm = ({ handleChange }) => {
               >
                 Update
               </Button>
-
+                  <span></span>
               <Button
                 variant="outlined"
                 onClick={(e) => deleteAddress(e)}

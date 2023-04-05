@@ -10,6 +10,8 @@ import Profile from "./components/Profile/Profile";
 import Contact from "./components/Contact/Contact";
 import {ToastContainer,toast} from'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Displayuser from "./components/DisplayUser/Displayuser";
+import Patientcard from "./components/Patient/Patientcard";
 function App() {
 
 	const user = localStorage.getItem("token");
@@ -33,6 +35,7 @@ function App() {
 			{user && <Route path="/form" exact element={<UserForm />} />}
 			<Route path="/form" element={<Navigate replace to="/login" />} />
 			{isAdmin && <Route path="/test" exact element={<TestList />} />}
+			{isAdmin && <Route path="/customer" exact element={<Displayuser />} />}
 			{isAdmin && <Route path="/alltest" exact element={<Tests />} />}
 			{!isAdmin && userid && <Route path="/report" exact element={<Tests />} />}
 			{!isAdmin && !userid && <Route path="/report" exact element={<Navigate replace to="/login" />} />}
