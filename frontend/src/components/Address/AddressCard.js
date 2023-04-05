@@ -9,13 +9,14 @@ export default function AddressCard({ address }) {
 
   return (
     <>
+    <h3>Address</h3>
       {address.map((obj, index) => (
         <Card key={index} sx={{ maxWidth: 345 }} style={{ margin: 8 }} >
           <CardActionArea >
             <CardContent  >
               
                 <Typography  gutterBottom variant="h5" component="div">
-                  <strong> {obj.address[0]} </strong>
+                  <strong> {obj.address} </strong>
                   
                 </Typography>
 

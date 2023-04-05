@@ -72,6 +72,9 @@ function Header(props) {
 								{isAdmin && <li className="nav-item">
 									<a className="nav-link" ><NavLink to="/test" >Test</NavLink></a>
 								</li>}
+								{isAdmin && <li className="nav-item">
+									<a className="nav-link" ><NavLink to="/customer" >Customer</NavLink></a>
+								</li>}
 								<li className="nav-item">
 									<a className="nav-link" ><NavLink to="/contact" >Contact</NavLink></a>
 								</li>
