@@ -18,7 +18,6 @@ const Main = () => {
 			<Banner />
 			<About />
 			<Contact />
-			<Footer />
 		</div>
 	);
 };

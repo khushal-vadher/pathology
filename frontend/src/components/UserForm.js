@@ -18,6 +18,7 @@ import axios from 'axios';
 import Header from './Header/Header';
 import { useNavigate } from 'react-router-dom';
 import Footer from './Footer/Footer';
+import {ToastContainer,toast} from'react-toastify';
 
 const UserForm = () => {
   const navigator= useNavigate()
@@ -67,19 +68,58 @@ const UserForm = () => {
     user_id :userid,
     nameOfTest:'',
     disease:'',
-    age:20,
+    age:0,
     gender:'',
     address:'',
     slot:'',
     date:'',
     nameOfPatient :'',
     sampleReq : '',
-    amount : 500
+    amount : 0
   });
 
   // Actions
   const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+
+    if(activeStep === 0){
+      if(appointmentdata.nameOfTest.length>0 && appointmentdata.disease.length>0 && appointmentdata.amount>0 && appointmentdata.sampleReq.length>0 ){
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      }
+      else{
+          toast.warning('please select a report');
+      }
+    }
+    else{
+       if(activeStep === 1){
+        if(appointmentdata.nameOfPatient.length>0 && appointmentdata.gender.length>0 && appointmentdata.age>0){
+          setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        }
+        else{
+            toast.warning('please select a patient');
+        }
+
+      }
+      else  if(activeStep === 2){
+        if(appointmentdata.address.length>0){
+          setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        }
+        else{
+            toast.warning('please select a address');
+        }
+      }
+      else  if(activeStep === 3){
+        if(appointmentdata.slot.length>0 && appointmentdata.date.length>0 ){
+          setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        }
+        else{
+            toast.warning('please select a time and date');
+        }
+      }
+      else{
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      }
+    }
+    
   };
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
@@ -136,6 +176,7 @@ const UserForm = () => {
     try{
       const res =await axios.post('/appointment/create',saveData)
       console.log(res.data)
+      toast.success('you have succesfully registered appointment');
       navigator("/")
 
     }catch(err){

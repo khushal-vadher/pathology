@@ -8,6 +8,8 @@ import Home from "./components/Home/index.jsx";
 import Tests from "./components/DisplayUserTest/Tests"
 import Profile from "./components/Profile/Profile";
 import Contact from "./components/Contact/Contact";
+import {ToastContainer,toast} from'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
 
 	const user = localStorage.getItem("token");
@@ -15,9 +17,13 @@ function App() {
 	const userid = localStorage.getItem("userid")
 	if(userid === "6425acd05851f274a3fcce71"){
 		var isAdmin = true
+	}else{
+		isAdmin = false
 	}
 
 	return (
+		<>
+		<ToastContainer  style={{marginTop:"110px"}}/>
 		<Routes>
 			<Route path="/" exact element={<Home />} />
 			<Route path="/signup" exact element={<Signup />} />
@@ -28,10 +34,12 @@ function App() {
 			<Route path="/form" element={<Navigate replace to="/login" />} />
 			{isAdmin && <Route path="/test" exact element={<TestList />} />}
 			{isAdmin && <Route path="/alltest" exact element={<Tests />} />}
-			{!isAdmin && <Route path="/report" exact element={<Tests />} />}
+			{!isAdmin && userid && <Route path="/report" exact element={<Tests />} />}
+			{!isAdmin && !userid && <Route path="/report" exact element={<Navigate replace to="/login" />} />}
 			{user && <Route path="/profile" exact element={<Profile />}/>}
 			<Route path="/profile" exact element={<Navigate replace to="/login" />} />
 		</Routes>
+		</>
 	);
 }
 

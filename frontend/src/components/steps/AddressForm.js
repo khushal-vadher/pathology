@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useReducer } from "react";
 import { useState, useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
@@ -23,9 +23,21 @@ const AddressForm = ({ handleChange }) => {
   const [address, setAddress] = useState([]);
   const [clickaddress, setClickAdress] = useState("");
   const [show, setShow] = useState(false);
+  const [reducer,setReducer] = useReducer(x=>x+1,0);
+  
+  const userid = localStorage.getItem("userid");
   //add address to database
   const addNewAddress = async (e) => {
     e.preventDefault();
+    const saveObj = {
+      user_id : userid,
+      address : clickaddress
+    }
+    try{
+      await axios.post("/address/create",saveObj).then(setReducer())
+    }catch(err){
+      console.log(err);
+    }
   };
   //update the address with given id
   const updateAddress = (e) => {
@@ -36,7 +48,6 @@ const AddressForm = ({ handleChange }) => {
   };
 
   const navigate = useNavigate();
-  const userid = localStorage.getItem("userid");
   useEffect(() => {
     const Fetch = async () => {
       try{
@@ -46,7 +57,7 @@ const AddressForm = ({ handleChange }) => {
       }
     };
     Fetch();
-  }, []);
+  }, [reducer]);
   console.log(address);
 
   const styles = makeStyles((theme) => ({
