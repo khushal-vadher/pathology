@@ -92,14 +92,7 @@ function Displayuser() {
                                 <div className="col-sm-6">
                                     <h2>All Test <b>Details</b></h2>
                                 </div>
-                                <div className="col-sm-6">
-                                    <div className="search-box">
-                                        <div className="input-group">
-                                            <input type="text" id="search" className="form-control" placeholder="Search by Name" />
-                                            <span className="input-group-addon"><i className="material-icons">&#xE8B6;</i></span>
-                                        </div>
-                                    </div>
-                                </div>
+                                
                             </div>
                         </div>
                         <table className="table table-striped">

@@ -12,8 +12,7 @@ const Address = require('./routes/Address.js')
 const bodyParser = require('body-parser');
 const Patient = require('./routes/Patient.js');
 const  app = express();
-const mail = require('./controller/Mail.js')
-
+const Mail = require("./routes/Mail.js")
 
 //for connection to the mongodb atlas
 connectDB();
@@ -34,7 +33,7 @@ app.use('/test',TestRoutes); //for admin (CRUD)
 app.use('/report',Report); //for admin (get getAll)
 app.use('/patient',Patient)
 app.use('/address',Address)
-app.post('/mail',mail)
+app.use('/mail',Mail)
 
 app.use((err,req,res,next)=>{
     const errorStatus = err.status|| 500 ;

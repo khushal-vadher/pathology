@@ -8,6 +8,7 @@ import './tests.css';
 const Tests = () => {
 
     const [reports, setReports] = useState([])
+    const [user,setUser] = useState({})
     const [show,setShow] = useState(false)
     const [reducer,setReducer] =useReducer(x=>x+1,0)
     const userid = localStorage.getItem("userid")
@@ -59,12 +60,13 @@ const Tests = () => {
         }
     }
 
-    const handleMail =async () =>{
+    const handleMail =async (e,id) =>{
         setShow(!show)
-        await axios.post("/mail",{
-            email : "khushalvadher229@gmail.com"
+         await axios.get(`/users/get/${id}`).then((res)=>{setUser(res.data)})
+         console.log(user.email)
+        await axios.post("/mail/send",{
+            email : user.email
         })
-
     }
 
 
@@ -80,14 +82,7 @@ const Tests = () => {
                                 <div className="col-sm-6">
                                     <h2>All Test <b>Details</b></h2>
                                 </div>
-                                <div className="col-sm-6">
-                                    <div className="search-box">
-                                        <div className="input-group">
-                                            <input type="text" id="search" className="form-control" placeholder="Search by Name" />
-                                            <span className="input-group-addon"><i className="material-icons">&#xE8B6;</i></span>
-                                        </div>
-                                    </div>
-                                </div>
+                                
                             </div>
                         </div>
                         <table className="table table-striped">
@@ -122,8 +117,8 @@ const Tests = () => {
                                         <td>{obj.address}</td>
                                         <td>{obj.slot}</td>
                                         <td>{obj.date}</td>
-                                        <a onClick={(e)=>{handleDelete(e,obj._id)}}  className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                                         <Button onClick={handleMail}>Mail</Button>
+                                        {isAdmin && <a onClick={(e)=>{handleDelete(e,obj._id)}}  className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>}
+                                        {isAdmin && <Button onClick={(e)=>{handleMail(e,obj.user_id)}}>Mail</Button>}
 
 
                                     </tr>

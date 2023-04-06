@@ -1,22 +1,17 @@
 import React, { useReducer } from "react";
 import { useState, useEffect } from "react";
-import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
-import Title from "../layout/Title";
-import Address from "../Address/AddressCard";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 import Button from "@mui/material/Button";
 import UpdateIcon from "@mui/icons-material/Update";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
-import { Grid } from "@material-ui/core";
 // import SendIcon from '@mui/icons-material/Send';
 // import Stack from '@mui/material/Stack';
 
@@ -41,8 +36,9 @@ const AddressForm = ({ handleChange }) => {
       address : clickaddress.address
     }
     try{
-      await axios.post("/address/create",saveObj).then(setReducer())
+      await axios.post("/address/create",saveObj).then()
       setShow(!show)
+      setReducer()
 			toast.success('Address has been added successfully!');
 
     }catch(err){
