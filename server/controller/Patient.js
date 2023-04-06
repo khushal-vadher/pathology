@@ -35,6 +35,23 @@ const deletePatient = async (req,res,next)=>{
     }
 };
 
+const deleteManyPatient = async (req,res,next)=>{
+  console.log("Patient")
+  console.log(req.body.id)
+  try{
+    const dle_patient =await Patient.deleteMany({
+      user_id : req.body.id
+    })
+    console.log(dle_patient)
+    console.log("Deleted many patient")
+    res.status(200).json("Many Patient deleted");
+  }catch(err){
+    console.log(err)
+    res.status(500).json(err)
+  }
+}
+
+
 const getPatient = async (req, res, next) => {
     try {
       const patient = await Patient.findById(req.params.id);
@@ -68,5 +85,5 @@ const getPatients = async (req, res, next) => {
     }
   };
 
-module.exports = {createNewPatient,updatePatient,deletePatient,getPatient,getPatients,getPatientByUserid};
+module.exports = {createNewPatient,updatePatient,deletePatient,deleteManyPatient,getPatient,getPatients,getPatientByUserid};
 

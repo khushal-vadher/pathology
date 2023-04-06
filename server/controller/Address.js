@@ -35,6 +35,23 @@ const deleteAddress = async (req,res,next)=>{
     }
 };
 
+const deleteManyAddress = async (req,res,next) =>{
+  try {
+  console.log("Address")
+  console.log(req.body.id)
+
+    const add = await Address.deleteMany({
+      user_id : req.body.id
+    })
+    console.log(add)
+    console.log("Many Addresses Deleted")
+    res.status(200).json(add)
+  } catch (error) {
+    console.log(err)
+    res.status(500).json(err)
+  }
+}
+
 const getAddress = async (req, res, next) => {
     try {
       const address = await Address.findById(req.params.id);
@@ -67,5 +84,5 @@ const getAddressByUserid = async (req, res, next) => {
   }
 };
 
-module.exports = {createNewAddress,updateAddress,deleteAddress,getAddress,getAddresss,getAddressByUserid};
+module.exports = {createNewAddress,updateAddress,deleteAddress,deleteManyAddress,getAddress,getAddresss,getAddressByUserid};
 

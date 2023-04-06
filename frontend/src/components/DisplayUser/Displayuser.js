@@ -11,11 +11,12 @@ function Displayuser() {
     const [patient, setPatient] = useState([])
     const [address, setAddress] = useState([])
     const [reducer, setReducer] = useReducer(x => x + 1, 0)
+    const [show, setShow] = useState(true)
     const nav = useNavigate()
     const fetch = async () => {
         try {
             // axios.get("/users/getall").then((response)=>{setUsers(response.data);});
-            axios.get("/users/getall").then((res) => { setUsers(res.data) })
+            await axios.get("/users/getall").then((res) => { setUsers(res.data) })
             // console.log(users);
         } catch (err) {
             console.log(err);
@@ -33,6 +34,22 @@ function Displayuser() {
 
     }
 
+    const handleDeleteUser = async (e,id) =>{
+        e.preventDefault();
+        // const obj = {
+        //     id : id
+        // }
+        try {
+            await axios.post(`/patient/deletemany`,{id}).then((res)=>{console.log("Patient Deleted" )})
+            await axios.post(`/address/deletemany`,{id}).then((res)=>{console.log("address Deleted")})
+            await axios.post(`/appointment/deletemany`,{id}).then((res)=>{console.log("appoiontment Deleted")})
+            await axios.delete(`/users/delete/${id}`).then((res)=>{console.log("user Deleted")})
+            console.log("User deleted and corrosponding patient , address and appointmnt are also deleted")
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     var isPatient = false
     const handlePatient = (e, userid) => {
         e.preventDefault();
@@ -42,11 +59,11 @@ function Displayuser() {
 
             axios.post("/patient/get", { userid }).then((res) => { setPatient(res.data) })
             console.log(patient)
+            setShow(!show)
 
         } catch (err) {
             console.log(err)
         }
-
     }
     const handleAddress = (e, userid) => {
         e.preventDefault();
@@ -62,17 +79,12 @@ function Displayuser() {
                 console.log(err)
             }
         }
-
         get()
-
-        
     }
-
-
     return (
-        <div>
+        <>
             <Header />
-            <div className="container-lg">
+            {show && <div className="container-lg">
                 <div className="table-responsive">
                     <div className="table-wrapper">
                         <div className="table-title">
@@ -99,9 +111,6 @@ function Displayuser() {
                                     <th>Email</th>
                                     <th></th>
                                     <th></th>
-
-
-
                                 </tr>
                             </thead>
                             <tbody>
@@ -112,26 +121,23 @@ function Displayuser() {
                                         <td>{obj.email}</td>
                                         <td><Button onClick={(e) => { handlePatient(e, obj._id) }} >Patient</Button></td>
                                         <td><Button onClick={(e) => { handleAddress(e, obj._id) }} >Address</Button></td>
+                                        <td><Button onClick={(e) => { handleDeleteUser(e, obj._id) }} >Delete</Button></td>
                                     </tr>
                                 ))
                                 }
-
                             </tbody>
-
                         </table>
-
                     </div>
                 </div>
-            </div>
-           
-                {1 && <Patientcard patient={patient} />}
-            
+            </div>}
             <div>
-                {1&& <AddressCard address={address} />}
+                {1&& <Patientcard patient={patient} />}
             </div>
-
+            <div>
+                {1 && <AddressCard address={address} />}
+            </div>
             <Footer />
-        </div>
+        </>
     );
 }
 

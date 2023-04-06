@@ -1,6 +1,6 @@
 const express = require('express');
 const createError = require('../controller/error.js');
-const  {createNewAppointment,updateAppointment,deleteAppointment,getAppointment,getAppointments, getAppointmentByUserid}  = require("../controller/Appointment.js");
+const  {createNewAppointment,updateAppointment,deleteAppointment,deleteManyAppointment,getAppointment,getAppointments, getAppointmentByUserid}  = require("../controller/Appointment.js");
 
 const router = express.Router();
 
@@ -16,6 +16,9 @@ router.put("/update/:id",updateAppointment);
 
 //DELETE
 router.delete("/delete/:id",deleteAppointment);
+
+//DELETE MANY
+router.post("/deletemany",deleteManyAppointment)
 
 //GET
 router.get("/:id", getAppointment);

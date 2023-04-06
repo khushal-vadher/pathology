@@ -1,12 +1,15 @@
 
+import { Button } from "@material-ui/core";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import './tests.css';
 const Tests = () => {
 
     const [reports, setReports] = useState([])
+    const [show,setShow] = useState(false)
+    const [reducer,setReducer] =useReducer(x=>x+1,0)
     const userid = localStorage.getItem("userid")
     if (userid === "6425acd05851f274a3fcce71") {
         var isAdmin = true
@@ -38,7 +41,32 @@ const Tests = () => {
 
 
         fetchReport();
-    }, [])
+    }, [reducer])
+
+    const handleShow  = () =>{
+
+    }
+
+    const handleDelete = async(e,id) =>{
+        e.preventDefault();
+        
+        try{
+            await axios.delete(`/appointment/delete/${id}`)
+            console.log("Deleted")
+            setReducer()
+        }catch(err){
+            console.log(err)
+        }
+    }
+
+    const handleMail =async () =>{
+        setShow(!show)
+        await axios.post("/mail",{
+            email : "khushalvadher229@gmail.com"
+        })
+
+    }
+
 
     return (
         <>
@@ -94,6 +122,9 @@ const Tests = () => {
                                         <td>{obj.address}</td>
                                         <td>{obj.slot}</td>
                                         <td>{obj.date}</td>
+                                        <a onClick={(e)=>{handleDelete(e,obj._id)}}  className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                         <Button onClick={handleMail}>Mail</Button>
+
 
                                     </tr>
                                 ))

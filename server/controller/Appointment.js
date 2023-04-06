@@ -36,6 +36,26 @@ const deleteAppointment = async (req, res, next) => {
   }
 };
 
+const deleteManyAppointment = async (req,res,next)=>{
+  const id = req.body.id
+  console.log("Appointment")
+  console.log(req.body.id)
+
+  try{
+    console.log("Inside delete appo.")
+    const dele_appointmnt =await Appointment.deleteMany({
+      user_id : id
+    })
+    console.log(dele_appointmnt)
+    console.log("Many Appointment Deleted")
+    res.status(200).json(dele_appointmnt)
+
+  }catch(err){
+    console.log(err)
+    res.status(500).json(err)
+  }
+}
+
 const getAppointment = async (req, res, next) => {
   try {
     const appointment = await Appointment.findById(req.params.id);
@@ -67,5 +87,5 @@ const getAppointmentByUserid = async (req, res, next) => {
     next(err);
   }
 };
-module.exports = { createNewAppointment, updateAppointment, deleteAppointment, getAppointment, getAppointments,getAppointmentByUserid };
+module.exports = { createNewAppointment, updateAppointment, deleteAppointment,deleteManyAppointment, getAppointment, getAppointments,getAppointmentByUserid };
 
