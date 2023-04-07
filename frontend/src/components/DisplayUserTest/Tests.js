@@ -5,6 +5,8 @@ import React, { useEffect, useReducer, useState } from "react";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import './tests.css';
+import {ToastContainer,toast} from'react-toastify';
+
 const Tests = () => {
 
     const [reports, setReports] = useState([])
@@ -55,6 +57,7 @@ const Tests = () => {
             await axios.delete(`/appointment/delete/${id}`)
             console.log("Deleted")
             setReducer()
+            toast.success('Appointment has been deleted successfully!');
         }catch(err){
             console.log(err)
         }
@@ -67,6 +70,8 @@ const Tests = () => {
         await axios.post("/mail/send",{
             email : user.email
         })
+        toast.success('User has been mailed his/her report successfully!');
+
     }
 
 
