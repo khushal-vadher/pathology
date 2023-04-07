@@ -6,6 +6,8 @@ import { Button } from '@material-ui/core';
 import { useNavigate } from 'react-router-dom';
 import Patientcard from '../Patient/Patientcard';
 import AddressCard from '../Address/AddressCard';
+import {ToastContainer,toast} from'react-toastify';
+
 function Displayuser() {
     const [users, setUsers] = useState([])
     const [patient, setPatient] = useState([])
@@ -44,7 +46,10 @@ function Displayuser() {
             await axios.post(`/address/deletemany`,{id}).then((res)=>{console.log("address Deleted")})
             await axios.post(`/appointment/deletemany`,{id}).then((res)=>{console.log("appoiontment Deleted")})
             await axios.delete(`/users/delete/${id}`).then((res)=>{console.log("user Deleted")})
+            setReducer()
             console.log("User deleted and corrosponding patient , address and appointmnt are also deleted")
+            toast.success('User has been deleted successfully!');
+
         } catch (error) {
             console.log(error)
         }
