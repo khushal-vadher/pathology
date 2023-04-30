@@ -10,27 +10,22 @@ export default function AddressCard({ address }) {
   return (
     <>
     <h3>Address</h3>
+    <div > 
       {address.map((obj, index) => (
         <Card key={index} sx={{ maxWidth: 345 }} style={{ margin: 8 }} >
           <CardActionArea >
             <CardContent  >
               
                 <Typography  gutterBottom variant="h5" component="div">
-                  <strong> {obj.address} </strong>
+                  <strong style={{fontSize:"17px"}}> {obj.address} </strong>
                   
-                </Typography>
-
-              
-              <Typography variant="body2" color="text.secondary">
-                This Description for test.
-              </Typography>
-             
-              
+                </Typography>           
             </CardContent>
           </CardActionArea>
         </Card>
 
       ))}
+      </div>
     </>
   );
 }

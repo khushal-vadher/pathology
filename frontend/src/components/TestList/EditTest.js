@@ -62,7 +62,7 @@ function EditTest(t) {
                                 </div>
                                 <div className="form-group">
                                     <label>Disease</label>
-                                    <input className="form-control" required onChange={(e) => onchangeeditvalue(e)} name="disease" ></input>
+                                    <input className="form-control" required onChange={(e) => onchnagevalue(e)} name="disease" ></input>
                                 </div>
                                 <div className="form-group">
                                     <label>Phone</label>

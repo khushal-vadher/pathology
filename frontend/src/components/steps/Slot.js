@@ -16,16 +16,17 @@ const Slot = ({ handleChange }) => {
   }
   return (
     <>
-      <div className="app-slot">
+    <br></br>
+      <div className="app-slot" style={{fontSize:"16px"}}>
         <div>
           <div>
-
+            <label  >Select Date :</label>
             <input type="date" className="reportDate" name='date' onChange={(e) => { detail(e) }}></input>
           </div>
 
           <br></br>
           <br></br>
-          <p>select Timing </p>
+          <p  >Select Timing </p>
           <p>9:00AM to 12:00PM</p>
           <div className="app-check">
             <input type="radio" className="option-input radio" name="slot" value='9:00 AM' onClick={(e) => { detail(e) }} />
@@ -68,7 +69,9 @@ const Slot = ({ handleChange }) => {
         </div>
         <div>
           <div>
-            <p>Timings</p>
+            {/* <p>Timings</p>
+             */}
+             <br></br>
           </div>
           <p>1:00PM to 5:00PM</p>
           <div className="app-check">
@@ -118,7 +121,7 @@ const Slot = ({ handleChange }) => {
         </div>
       </div>
       <br></br>
-
+       <br></br>
     </>
 
   )

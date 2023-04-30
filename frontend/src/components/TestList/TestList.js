@@ -5,6 +5,7 @@ import AddTest from './AddTest';
 import './testlist.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import {ToastContainer,toast} from'react-toastify';
 function TestList() {
     const [test, setTest] = useState([])
     const [t, setT] = useState({});
@@ -46,6 +47,7 @@ function TestList() {
 
         try {
            const res =  await axios.delete(`/test/delete/${delid}`)
+           toast.success("test has been  deleted successfully");
 
         }catch(err){
             console.log(err);
@@ -63,17 +65,24 @@ function TestList() {
     }
     const handleEdit = async (e) => {
         e.preventDefault();
-        
-        try {
 
-            const rs = await axios.put(`/test/update/${updateTest._id}`, updateTest)
-            console.log(rs)
-            
+         if(updateTest.nameOfTest.length===0  || updateTest.amount<=0  ||  updateTest.sampleReq.length===0 || updateTest.disease.length===0){
+              toast.warning('please enter all the fields ');
         }
-        catch (err) {
-            console.log(err);
+        else{
+            try {
+
+                const rs = await axios.put(`/test/update/${updateTest._id}`, updateTest)
+                console.log(rs)
+                toast.success('test has been updated successfully')
+                
+            }
+            catch (err) {
+                console.log(err);
+            }
+            setReducerval()
         }
-        setReducerval()
+
     }
 
 
@@ -147,7 +156,7 @@ function TestList() {
 
                                 </tbody>))}
                         </table>
-                        <div className="clearfix">
+                        {/* <div className="clearfix">
                             <div className="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
                             <ul className="pagination">
                                 <li className="page-item disabled"><a href="#">Previous</a></li>
@@ -158,7 +167,7 @@ function TestList() {
                                 <li className="page-item"><a href="#" className="page-link">5</a></li>
                                 <li className="page-item"><a href="#" className="page-link">Next</a></li>
                             </ul>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
@@ -194,7 +203,7 @@ function TestList() {
                             </div>
                             <div className="modal-footer">
                                 <input type="button" className="btn btn-default" data-dismiss="modal" value="Cancel" />
-                                <input type="submit" className="btn btn-info" value="Save" onClick={handleEdit}/> {/*handle edit */}
+                                <input type="submit" className="btn btn-info"  style={{backgroundColor:"#00D9A5"}}value="Save" onClick={handleEdit}/> {/*handle edit */}
                             </div>
                         </form>
                     </div>
@@ -217,7 +226,7 @@ function TestList() {
                             </div>
                             <div className="modal-footer">
                                 <input type="button" className="btn btn-default" data-dismiss="modal" value="Cancel" />
-                                <input type="submit"  className="btn btn-danger" value="Delete" onClick={(event)=>{handleDelete(event)}} />
+                                <input type="submit"  className="btn btn-danger"  style={{backgroundColor:"#00D9A5"}} value="Delete" onClick={(event)=>{handleDelete(event)}} />
                             </div>
                         </form>
                     </div>

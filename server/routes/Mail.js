@@ -26,13 +26,13 @@ router.post("/send", async(req,res)=>{
               email: process.env.MAIL
           },
           to: req.body.email,
-          subject: 'Registration Successfull at Tournion!',
-          text: 'Congratulation!! Registration Successful',
+          subject: 'Report from One-Health',
+          text: 'Here is your report  From One-Health.',
           html: `<p>Your Reoport :</p>`,
           attachments : [
             {
               filename:'report.pdf',
-            path:'https://mysy.guj.nic.in/Noticeboard/FAQs.pdf'        }
+            path:'https://mylabindia.com/wp-content/uploads/2019/02/c.s.f.-examination-routine.pdf'        }
           ]
       };
   

@@ -2,10 +2,11 @@ import axios from 'axios';
 import React, { useEffect, useReducer } from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import {ToastContainer,toast} from'react-toastify';
 function AddTest() {
     const [addTest, setAddTest] = useState({
         nameOfTest: '',
-        amount: 200,
+        amount: 0,
         sampleReq: "",
         disease: ""
     })
@@ -26,7 +27,12 @@ function AddTest() {
         //     console.log(submit)
             
         // }
-        console.log(addTest)
+        if(addTest.nameOfTest.length===0  || addTest.amount===0  ||  addTest.sampleReq.length===0 || addTest.disease.length===0){
+              toast.warning('please enter all the fields ');
+        }
+        else {
+
+            console.log(addTest)
         try {
 
             const res = await axios.post('/test/create', addTest)
@@ -35,6 +41,8 @@ function AddTest() {
             console.log(err);
         }
         setReducer();
+        }
+        
 
         // setTimeout(10000);
     }
@@ -72,7 +80,7 @@ function AddTest() {
                             </div>
                             <div className="modal-footer">
                                 <input type="button" className="btn btn-default" data-dismiss="modal" value="Cancel" />
-                                <input type="submit" className="btn btn-success" value="Add" onClick={(event) =>{handleAdd(event)}} />
+                                <input type="submit" className="btn btn-success"  style={{backgroundColor:"#00D9A5"}}value="Add" onClick={(event) =>{handleAdd(event)}} />
                             </div>
                         </form>
                     </div>

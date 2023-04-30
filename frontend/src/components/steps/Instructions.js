@@ -43,11 +43,13 @@ function Instructions({ handleChange }) {
 
   return (
     <>
-      <Title stepTitle='Welcome to Pathology ' />
+    <br></br>
+     
+      <Title stepTitle='Welcome to Pathology '/>
       <br></br>
       {/* <Testcard tests={tests} /> */}
       {tests.map((obj, index) => (
-        <Card key={index} sx={{ maxWidth: 345 }} style={{ margin: 8 }} onClick={(e) => { detail(e, obj) }}>
+        <Card key={index} sx={{ maxWidth: 430 }} style={{ margin: 8 }} onClick={(e) => { detail(e, obj) }}>
 
           <CardActionArea>
             <CardContent >
@@ -63,17 +65,13 @@ function Instructions({ handleChange }) {
               </Typography>
 
 
-              <Typography variant="body2" color="text.secondary">
-                This Description for test.
-              </Typography>
 
             </CardContent>
           </CardActionArea>
         </Card>
-
+ 
       ))}
-
-
+    <br></br>
     </>
   );
 }

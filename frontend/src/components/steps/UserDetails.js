@@ -40,44 +40,64 @@ const UserDetails = ({ handleChange }) => {
 
   const addNewPatient = async (e) => {
     e.preventDefault();
-    try {
-      await axios.post("/patient/create", selectedPatient).then((res) => { setSelectedPatient(res.data) })
-      setShow(!show)
-      setReducer()
-			toast.success('Patient has been added successfully!');
-    
-
-    } catch (err) {
-      console.log(err)
+    if(!(selectedPatient.age>0 && selectedPatient.nameOfPatient.length>0 &&  selectedPatient.gender.length>0)){
+          toast.warning('all the fields are required'); 
     }
+    else{
+      try {
+        await axios.post("/patient/create", selectedPatient).then((res) => { setSelectedPatient(res.data) })
+        setShow(!show)
+        setReducer()
+        toast.success('Patient has been added successfully!');
+      
+  
+      } catch (err) {
+        console.log(err)
+      }
+    }
+
     
   };
   const updatePatient = async (e) => {
     e.preventDefault();
-    try {
-      await axios.put(`/patient/update/${selectedPatient._id}`, selectedPatient).then((res) => { setSelectedPatient(res.data) })
-      setShow(!show)
+    if(!(selectedPatient.age>0 && selectedPatient.nameOfPatient.length>0 &&  selectedPatient.gender.length>0)){
+      toast.warning('all the fields are required');
+}
+else{
+  try {
+    await axios.put(`/patient/update/${selectedPatient._id}`, selectedPatient).then((res) => { setSelectedPatient(res.data) })
+    setShow(!show)
 
-      setReducer()
+    setReducer()
 
-			toast.success('Patient has been updated successfully!');
+    toast.success('Patient has been updated successfully!');
 
-    } catch (err) {
-      console.log(err)
-    }
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+    
   };
   const deletePatient = async (e) => {
     e.preventDefault();
-    try{
-      await axios.delete(`/patient/delete/${selectedPatient._id}`).then(()=>{setSelectedPatient({})})
-      setShow(!show)
+    if(selectedPatient.nameOfPatient.length===0){
+      toast.warning('please select a patient');
+}
+else{
+  try{
+    await axios.delete(`/patient/delete/${selectedPatient._id}`).then(()=>{setSelectedPatient({})})
+    setShow(!show)
 
-      setReducer()
-			toast.success('Patient has been deleted successfully!');
+    setReducer()
+    toast.success('Patient has been deleted successfully!');
 
-    }catch(err){
-      console.log(err)
-    }
+  }catch(err){
+    console.log(err)
+  }
+}
+
+
   };
   useEffect(() => {
     const Fetch = async () => {
@@ -140,9 +160,7 @@ const UserDetails = ({ handleChange }) => {
                 <strong>Gender : {obj.gender} </strong>
               </Typography>
 
-              <Typography variant="body2" color="text.secondary">
-                This Description for test.
-              </Typography>
+
             </CardContent>
           </CardActionArea>
         </Card>
@@ -164,6 +182,7 @@ const UserDetails = ({ handleChange }) => {
               data-dismiss="modal"
               // aria-hidden="true"
               onClick={(e) => setShow(!show)}
+              
             >
               &times;
             </button>

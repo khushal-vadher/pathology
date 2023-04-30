@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
-import {ToastContainer,toast} from'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 
 const Profile = () => {
     const [data, setData] = useState({
@@ -14,24 +14,33 @@ const Profile = () => {
     });
     const navigate = useNavigate();
 
-    const handleChange = ({ currentTarget: input }) => {
-        setData({ ...data, [input.name]: input.value });
+    const handleChange = (e) => {
+        setData((data)=>({
+             ...data, [e.target.name]: e.target.value 
+        }));
+        console.log(data)
     };
 
     const userid = localStorage.getItem("userid");
     const handleUpdate = async (e) => {
         e.preventDefault();
-        try {
-
-            await axios.put(`/users/update/${userid}`, data).then((res) => { setData(res.data) });
-            toast.success('your profile has been updated');
-            navigate("/");
-            console.log("Updated!");
-            console.log(data)
-            // console.log(res.message);
-        } catch (error) {
-            console.log(error)
+        if (data.firstName.length === 0 || data.lastName.length === 0 || data.email.length === 0) {
+            toast.warning("Empty fields are not valid!")
         }
+        else {
+            try {
+
+                await axios.put(`/users/update/${userid}`, data).then((res) => { setData(res.data) });
+                toast.success('your profile has been updated');
+                navigate("/");
+                console.log("Updated!");
+                console.log(data)
+                // console.log(res.message);
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
     };
 
 
@@ -69,7 +78,7 @@ const Profile = () => {
                                 type="text"
                                 placeholder="First Name"
                                 name="firstName"
-                                onChange={handleChange}
+                                onChange={(e) => handleChange(e)}
 
                                 defaultValue={data.firstName}
                                 className={styles.input}
@@ -78,15 +87,15 @@ const Profile = () => {
                                 type="text"
                                 placeholder="Last Name"
                                 name="lastName"
-                                onChange={handleChange}
+                                onChange={(e) => handleChange(e)}
                                 defaultValue={data.lastName}
                                 className={styles.input}
                             />
                             <input
                                 type="text"
-                                placeholder="Last Name"
-                                name="lastName"
-                                onChange={handleChange}
+                                placeholder="Email ID"
+                                name="email"
+                                onChange={(e) => handleChange(e)}
                                 defaultValue={data.email}
                                 className={styles.input}
                             />
