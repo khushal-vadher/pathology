@@ -122,7 +122,7 @@ const Tests = () => {
                                         <td>{obj.address}</td>
                                         <td>{obj.slot}</td>
                                         <td>{obj.date}</td>
-                                        {isAdmin && <a onClick={(e)=>{handleDelete(e,obj._id)}}  className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>}
+                                        {isAdmin && <Button onClick={(e)=>{handleDelete(e,obj._id)}}  className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></Button>}
                                         {isAdmin && <Button onClick={(e)=>{handleMail(e,obj.user_id)}}>Mail</Button>}
 
 

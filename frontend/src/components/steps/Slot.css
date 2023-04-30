@@ -34,8 +34,9 @@
   .option-input:checked {
     border: 1px solid #fff;
   }
+  /* style={{backgroundColor:"#00D9A5"}} */
   .option-input:checked::before {
-    color: #d9486d;
+    color: #00D9A5;
     height: 40px;
     width: 40px;
     position: absolute;
@@ -74,7 +75,7 @@
   }
   
   .option-input.radio:checked + .app-border {
-    background: #d9486d;
+    background: #00D9A5;
   }
   .option-input.radio:disabled,
   .option-input.radio:disabled + .app-border {

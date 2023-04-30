@@ -31,19 +31,25 @@ const AddressForm = ({ handleChange }) => {
   //add address to database
   const addNewAddress = async (e) => {
     e.preventDefault();
-    const saveObj = {
-      user_id : userid,
-      address : clickaddress.address
+    if(clickaddress.address.length===0 ){
+      toast.warning('please enter a addrss');
     }
-    try{
-      await axios.post("/address/create",saveObj).then()
-      setShow(!show)
-      setReducer()
-			toast.success('Address has been added successfully!');
+    else{
+      const saveObj = {
+        user_id : userid,
+        address : clickaddress.address
+      }
+      try{
+        await axios.post("/address/create",saveObj).then()
+        setShow(!show)
+        setReducer()
+        toast.success('Address has been added successfully!');
+  
+      }catch(err){
+        console.log(err);
+      }
+    }
 
-    }catch(err){
-      console.log(err);
-    }
   };
   const onchanged = (e) =>{
     setClickAdress((clickaddress)=>({
@@ -55,15 +61,21 @@ const AddressForm = ({ handleChange }) => {
   //update the address with given id
   const updateAddress =async (e) => {
     e.preventDefault();
-    try{
-      await axios.put(`/address/update/${clickaddress._id}`,clickaddress)
-      setShow(!show)
-      setReducer()
-			toast.success('Address has been updated successfully!');
-      
-    }catch(err){
-      console.log(err)
+    if(clickaddress.address.length===0){
+      toast.warning('please eneter a address');
     }
+    else{
+      try{
+        await axios.put(`/address/update/${clickaddress._id}`,clickaddress)
+        setShow(!show)
+        setReducer()
+        toast.success('Address has been updated successfully!');
+        
+      }catch(err){
+        console.log(err)
+      } 
+    }
+
   };
   const deleteAddress =async (e) => {
     e.preventDefault();
@@ -115,7 +127,7 @@ const AddressForm = ({ handleChange }) => {
           color="secondary"
           onClick={(e) => setShow(!show)}
           
-          style={{ marginLeft: "200px" }}
+          style={{ marginLeft: "200px",color:"#00D9A5" }}
         >
           Add Upadte Delete
         </Button>
@@ -138,9 +150,7 @@ const AddressForm = ({ handleChange }) => {
                 <strong> {obj.address} </strong>
               </Typography>
 
-              <Typography variant="body2" color="text.secondary">
-                This Description for test.
-              </Typography>
+
             </CardContent>
           </CardActionArea>
         </Card>

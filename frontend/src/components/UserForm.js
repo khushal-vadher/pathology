@@ -49,6 +49,7 @@ const UserForm = () => {
       padding: theme.spacing(2),
       textAlign: 'center',
       color: theme.palette.text.secondary,
+      
     },
     steps: {
       minHeight: '300px',
@@ -190,10 +191,10 @@ const UserForm = () => {
       <Header /><br /><br />
       <div className={classes.root}>
         {width > 479 ? (
-          <Stepper activeStep={activeStep} alternativeLabel>
+          <Stepper activeStep={activeStep}  alternativeLabel>
             {steps.map((label) => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
+              <Step key={label} >
+                <StepLabel  >{label}</StepLabel>
               </Step>
             ))}
           </Stepper>
@@ -253,10 +254,10 @@ const UserForm = () => {
                 >
                   Back
                 </Button>
-                {activeStep !== steps.length - 1 && <Button variant='contained' color='primary' onClick={handleNext} >
+                {activeStep !== steps.length - 1 && <Button variant='contained' style={{backgroundColor:"#00D9A5"}} onClick={handleNext} >
                   {activeStep === steps.length - 1 ? 'Submit' : 'Next'}
                 </Button>}
-                {activeStep === steps.length -1 && <Button variant='contained' color='primary' onClick={saveAppointment} >
+                {activeStep === steps.length -1 && <Button variant='contained' style={{backgroundColor:"#00D9A5"}} onClick={saveAppointment} >
                   {activeStep === steps.length - 1 ? 'Submit' : 'Next'}
                 </Button>}
               </div>

@@ -7,20 +7,17 @@ import { useNavigate } from 'react-router-dom';
 import Button from "@mui/material/Button";
 
 
-export default function Patientcard({ patient ,reducer}) {
-  const nav = useNavigate()
-  const handleBack = () =>{
+export default function Patientcard({ patient }) {
 
-
-  }
   return (
     <>
     <h3>Patient</h3>
       {patient.map((obj, index) => (
-        <Card  style={{alignContent : "center"}} key={index} sx={{ maxWidth: 345 }}  >
-          <CardActionArea >
+        <div style={{fontSize:"17px",marginTop:"20px"}}>
+        <Card  style={{alignContent : "center"}} key={index} sx={{ maxWidth: 345 }}   >
+          <CardActionArea  >
             <CardContent >
-              <Typography gutterBottom variant="h5" component="div">
+              <Typography gutterBottom variant="h5" component="div" style={{fontSize:"17px"}}>
                 <strong>Name : {obj.nameOfPatient} </strong><br />
                 <strong>Age : {obj.age} </strong><br />
                 <strong>Gender : {obj.gender} </strong>
@@ -28,10 +25,9 @@ export default function Patientcard({ patient ,reducer}) {
             </CardContent>
           </CardActionArea>
         </Card>
-
+</div>
 
       ))}
-<Button variant='contained' color='primary' onClick={handleBack} >Back</Button>
 
     </>
   );

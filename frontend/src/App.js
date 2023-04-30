@@ -25,7 +25,7 @@ function App() {
 
 	return (
 		<>
-		<ToastContainer  style={{marginTop:"110px"}}/>
+		<ToastContainer  style={{marginTop:"20px"}}/>
 		<Routes>
 			<Route path="/" exact element={<Home />} />
 			<Route path="/signup" exact element={<Signup />} />
