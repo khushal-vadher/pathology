@@ -7,6 +7,19 @@ const Slot = ({ handleChange }) => {
   const s = ['Select slot', '9 to 10', '10 to 11', '11 to 12', '3 to 4', '4 to 5', '5 to 6', '6 to 7'];
   // let x = document.getElementById("date").value;
 
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1;
+  var yyyy = today.getFullYear();
+  if (dd < 10) {
+    dd = '0' + dd;
+  }
+  if (mm < 10) {
+    mm = '0' + mm;
+  }
+
+  today = yyyy + '-' + mm + '-' + dd;
+
   const detail = (e) => {
     console.log(e.target.name)
     console.log(e.target.value)
@@ -16,12 +29,12 @@ const Slot = ({ handleChange }) => {
   }
   return (
     <>
-    <br></br>
-      <div className="app-slot" style={{fontSize:"16px"}}>
+      <br></br>
+      <div className="app-slot" style={{ fontSize: "16px" }}>
         <div>
           <div>
             <label  >Select Date :</label>
-            <input type="date" className="reportDate" name='date' onChange={(e) => { detail(e) }}></input>
+            <input type="date" className="reportDate" name='date' onChange={(e) => { detail(e) }} min={today}></input>
           </div>
 
           <br></br>
@@ -71,7 +84,7 @@ const Slot = ({ handleChange }) => {
           <div>
             {/* <p>Timings</p>
              */}
-             <br></br>
+            <br></br>
           </div>
           <p>1:00PM to 5:00PM</p>
           <div className="app-check">
@@ -121,7 +134,7 @@ const Slot = ({ handleChange }) => {
         </div>
       </div>
       <br></br>
-       <br></br>
+      <br></br>
     </>
 
   )

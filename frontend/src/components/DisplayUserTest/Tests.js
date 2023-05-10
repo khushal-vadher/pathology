@@ -5,24 +5,29 @@ import React, { useEffect, useReducer, useState } from "react";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import './tests.css';
-import {ToastContainer,toast} from'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 
 const Tests = () => {
 
     const [reports, setReports] = useState([])
-    const [user,setUser] = useState({})
-    const [show,setShow] = useState(false)
-    const [reducer,setReducer] =useReducer(x=>x+1,0)
+    const [search, setSearch] = useState([]);
+    const [searchFilter, setSearchFilter] = useState('');
+    const [user, setUser] = useState({})
+    const [show, setShow] = useState(false)
+    const [reducer, setReducer] = useReducer(x => x + 1, 0)
     const userid = localStorage.getItem("userid")
     if (userid === "6425acd05851f274a3fcce71") {
         var isAdmin = true
-    }else{
+    } else {
         isAdmin = false
     }
     if (isAdmin) {
         var fetchReport = async () => {
             try {
-                await axios.get(`/appointment/`).then((res) => setReports(res.data))
+                await axios.get(`/appointment/`).then((res) =>{ 
+                    setReports(res.data)
+                    setSearch(res.data)
+                });
 
             } catch (err) {
                 console.log(err)
@@ -32,7 +37,10 @@ const Tests = () => {
     } else {
         var fetchReport = async () => {
             try {
-                await axios.post(`/appointment/get`, { userid }).then((res) => setReports(res.data))
+                await axios.post(`/appointment/get`, { userid }).then((res) => {
+                    setReports(res.data)
+                    setSearch(res.data)
+                })
 
             } catch (err) {
                 console.log(err)
@@ -46,34 +54,44 @@ const Tests = () => {
         fetchReport();
     }, [reducer])
 
-    const handleShow  = () =>{
+    const handleShow = () => {
 
     }
 
-    const handleDelete = async(e,id) =>{
+    const handleDelete = async (e, id) => {
         e.preventDefault();
-        
-        try{
+
+        try {
             await axios.delete(`/appointment/delete/${id}`)
             console.log("Deleted")
             setReducer()
             toast.success('Appointment has been deleted successfully!');
-        }catch(err){
+        } catch (err) {
             console.log(err)
         }
     }
 
-    const handleMail =async (e,id) =>{
+    const handleMail = async (e, id) => {
         setShow(!show)
-         await axios.get(`/users/get/${id}`).then((res)=>{setUser(res.data)})
-         console.log(user.email)
-        await axios.post("/mail/send",{
-            email : user.email
+        await axios.get(`/users/get/${id}`).then((res) => { setUser(res.data) })
+        console.log(user.email)
+        await axios.post("/mail/send", {
+            email: user.email
         })
         toast.success('User has been mailed his/her report successfully!');
 
     }
 
+    const handleFilter = (e) =>{
+        e.preventDefault();
+        if(e.target.value == ''){
+          setReports(search);
+        }else{
+          const searchResult = search.filter(item => item.nameOfTest.toLowerCase().includes(e.target.value.toLowerCase()) || item.disease.toLowerCase().includes(e.target.value.toLowerCase()) || item.nameOfPatient.toLowerCase().includes(e.target.value.toLowerCase()));
+          setReports(searchResult)
+        }
+        setSearchFilter(e.target.value)
+      }
 
     return (
         <>
@@ -87,7 +105,15 @@ const Tests = () => {
                                 <div className="col-sm-6">
                                     <h2>All Test <b>Details</b></h2>
                                 </div>
-                                
+                                <div className="col-sm-6">
+                                    <div className="search-box">
+                                        <div className="input-group">
+                                            <input type="text" id="search" className="form-control" placeholder="Search reports" value={searchFilter} onInput={(e) => handleFilter(e)} />
+                                            <span className="input-group-addon"><i className="material-icons">&#xE8B6;</i></span>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                         <table className="table table-striped">
@@ -122,8 +148,8 @@ const Tests = () => {
                                         <td>{obj.address}</td>
                                         <td>{obj.slot}</td>
                                         <td>{obj.date}</td>
-                                        {isAdmin && <Button onClick={(e)=>{handleDelete(e,obj._id)}}  className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></Button>}
-                                        {isAdmin && <Button onClick={(e)=>{handleMail(e,obj.user_id)}}>Mail</Button>}
+                                        {isAdmin && <Button onClick={(e) => { handleDelete(e, obj._id) }} className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></Button>}
+                                        {isAdmin && <Button onClick={(e) => { handleMail(e, obj.user_id) }}>Mail</Button>}
 
 
                                     </tr>

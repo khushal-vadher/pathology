@@ -11,6 +11,8 @@ import CloseIcon from "@mui/icons-material/Close";
 
 function Displayuser() {
   const [users, setUsers] = useState([]);
+  const [search, setSearch] = useState([]);
+  const [searchFilter, setSearchFilter] = useState('');
   const [isPatient, setIsPatient] = useState(false);
   const [isAddress, setIsAddress] = useState(false);
   const [patient, setPatient] = useState([]);
@@ -23,6 +25,7 @@ function Displayuser() {
       // axios.get("/users/getall").then((response)=>{setUsers(response.data);});
       await axios.get("/users/getall").then((res) => {
         setUsers(res.data);
+        setSearch(res.data)
       });
       // console.log(users);
     } catch (err) {
@@ -102,6 +105,17 @@ function Displayuser() {
     };
     get();
   };
+
+  const handleFilter = (e) =>{
+    e.preventDefault();
+    if(e.target.value == ''){
+      setUsers(search);
+    }else{
+      const searchResult = search.filter(item => item.firstName.toLowerCase().includes(e.target.value.toLowerCase()) || item.lastName.toLowerCase().includes(e.target.value.toLowerCase()) || item.email.toLowerCase().includes(e.target.value.toLowerCase()));
+      setUsers(searchResult)
+    }
+    setSearchFilter(e.target.value)
+  }
   return (
     <>
       <Header />
@@ -115,6 +129,14 @@ function Displayuser() {
                     <h2>
                       All Test <b>Details</b>
                     </h2>
+                  </div>
+                  <div className="col-sm-6">
+                    <div className="search-box">
+                      <div className="input-group">
+                        <input type="text" id="search" className="form-control" placeholder="Search User" value={searchFilter} onInput={(e)=>handleFilter(e)} />
+                          <span className="input-group-addon"><i className="material-icons">&#xE8B6;</i></span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
